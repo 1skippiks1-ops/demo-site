@@ -2,7 +2,7 @@
    Kataloq — main.js
    ============================================ */
 
-const WA_NUMBER_FALLBACK = '994XXXXXXXXX';
+const WA_NUMBER_FALLBACK = '994703007513';
 
 async function loadProducts() {
   try {
@@ -27,7 +27,7 @@ function getWANumber() {
 
 function getSiteName() {
   const s = getSettings();
-  return s.siteName || 'MəişətShop';
+  return s.siteName || 'elementstore.az';
 }
 
 function renderCard(p) {
