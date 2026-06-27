@@ -1,7 +1,7 @@
 /* ============================================
    ElementStore — Ana stil faylı
    ============================================ */
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&subset=latin,latin-ext&display=swap');
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
