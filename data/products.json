@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Tefal Bişirici Qazan",
+    "category": "Mətbəx",
+    "price": "89",
+    "description": "5 litr həcmli yapışmayan örtüklü qazan. Bütün ocaq növləri üçün uyğundur. Temperatur davamlı tutacaqlar.",
+    "whatsapp": "Salam! Tefal Bişirici Qazan (89₼) haqqında məlumat almaq istəyirəm.",
+    "image": "",
+    "inStock": true
+  },
+  {
+    "id": "2",
+    "name": "Philips Tozsoran",
+    "category": "Təmizlik",
+    "price": "145",
+    "description": "2000W güclü motor, HEPA filtr sistemi. Səs-küy səviyyəsi 72dB. 1.5L toz qabı. Uzun kabel - 6m.",
+    "whatsapp": "Salam! Philips Tozsoran (145₼) haqqında məlumat almaq istəyirəm.",
+    "image": "",
+    "inStock": true
+  },
+  {
+    "id": "3",
+    "name": "Arçelik Paltaryuyan",
+    "category": "Iri Məişət",
+    "price": "520",
+    "description": "7kq yükləmə, A+++ enerji sinifi. 1200 dövrə/dəq. 16 proqram. Ağıllı diaqnostika funksiyası.",
+    "whatsapp": "Salam! Arçelik Paltaryuyan (520₼) haqqında məlumat almaq istəyirəm.",
+    "image": "",
+    "inStock": true
+  }
+]
