@@ -33,9 +33,9 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 2rem;
 }
 
 /* ---- Header ---- */
@@ -223,7 +223,7 @@ body {
 .catalog-layout {
   display: grid;
   grid-template-columns: 220px 1fr;
-  gap: 2rem;
+  gap: 3rem;
   align-items: start;
 }
 
