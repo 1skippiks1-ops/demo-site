@@ -2,7 +2,7 @@
    Məhsul səhifəsi — product.js
    ============================================ */
 
-const WA_NUMBER_FALLBACK = '994703007513';
+const WA_NUMBER_FALLBACK = '994XXXXXXXXX';
 
 function getSettings() {
   try {
@@ -32,7 +32,7 @@ function buildWALink(product) {
 }
 
 function renderProduct(p) {
-  document.title = `${p.name} — elementstore.az`;
+  document.title = `${p.name} — MəişətShop`;
 
   const imgHtml = p.image
     ? `<img src="${p.image}" alt="${p.name}">`
