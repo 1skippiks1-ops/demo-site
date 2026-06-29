@@ -2,7 +2,7 @@
    Məhsul səhifəsi — product.js
    ============================================ */
 
-const WA_NUMBER_FALLBACK = '994XXXXXXXXX';
+const WA_NUMBER_FALLBACK = '994703007513';
 
 function getSettings() {
   try {
