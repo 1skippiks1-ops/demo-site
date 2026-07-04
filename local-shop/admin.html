@@ -298,22 +298,57 @@
                         </p>
                     </div>
 
-                    <div class="form-card" style="margin-top: 1.5rem">
+                    <div
+                        class="form-card"
+                        style="
+                            margin-top: 1.5rem;
+                            border-color: #c4b5fd;
+                            background: #f5f3ff;
+                        "
+                    >
                         <h3
                             style="
                                 font-size: 14px;
                                 font-weight: 700;
-                                margin: 0 0 0.5rem;
+                                margin: 0 0 0.75rem;
                                 color: #0f0a1e;
                             "
                         >
-                            📤 Canlı sayt üçün ixrac
+                            🚀 Cloudflare-ə göndər
                         </h3>
-                        <p class="form-hint" style="margin-bottom: 1rem">
-                            Yüklənən faylı <code>data/products.json</code> ilə
-                            əvəz edin.
-                        </p>
-                        <button class="btn-outline" onclick="exportJSON()">
+                        <ol
+                            style="
+                                padding-left: 1.2rem;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 0.5rem;
+                            "
+                        >
+                            <li class="form-hint">
+                                Aşağıdakı düyməyə bas →
+                                <code>products.json</code> yüklənəcək
+                            </li>
+                            <li class="form-hint">
+                                Yüklənən faylı
+                                <code>shop/data/products.json</code> faylının
+                                üzərinə köçür
+                            </li>
+                            <li class="form-hint">
+                                <code>git add data/products.json</code>
+                            </li>
+                            <li class="form-hint">
+                                <code>git commit -m "Update products"</code>
+                            </li>
+                            <li class="form-hint">
+                                <code>git push</code> → Cloudflare avtomatik
+                                deploy edir ✓
+                            </li>
+                        </ol>
+                        <button
+                            class="btn-primary"
+                            onclick="exportJSON()"
+                            style="margin-top: 1rem"
+                        >
                             📥 products.json yüklə
                         </button>
                     </div>

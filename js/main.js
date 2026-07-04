@@ -22,12 +22,6 @@ const ALL_CATEGORIES = [
 ];
 
 async function loadProducts() {
-  // Admin paneli localStorage-a yazır — əvvəlcə onu yoxla
-  try {
-    const local = localStorage.getItem("shop_products");
-    if (local) return JSON.parse(local);
-  } catch {}
-  // localStorage yoxdursa JSON faylından oxu
   try {
     const res = await fetch("data/products.json?v=" + Date.now());
     return await res.json();
