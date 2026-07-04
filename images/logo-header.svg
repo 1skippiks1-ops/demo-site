@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 52" fill="none">
+  <!-- "e" icon mark -->
+  <circle cx="26" cy="26" r="26" fill="#6C3DFF"/>
+  <!-- e letter shape inside circle -->
+  <path d="M14 26C14 19.373 19.373 14 26 14C32.627 14 38 19.373 38 26C38 26.552 37.552 27 37 27H15.05C15.282 31.915 19.2 35.8 24 35.8C26.8 35.8 29.3 34.6 31 32.7L34.5 35.5C32 38.3 28.2 40 24 40C18.477 40 14 35.523 14 30V26Z" fill="white"/>
+  <rect x="15" y="24.5" width="22" height="3" rx="1.5" fill="#6C3DFF"/>
+
+  <!-- elementstore.az text -->
+  <text x="62" y="33" font-family="Roboto, Arial, sans-serif" font-size="22" font-weight="700" fill="#6C3DFF" letter-spacing="-0.5">elementstore.az</text>
+</svg>
