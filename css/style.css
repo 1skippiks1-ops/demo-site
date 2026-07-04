@@ -737,6 +737,16 @@ body {
     .nav-phone {
         display: none;
     }
+    .logo-text {
+        display: none;
+    }
+    .logo-img {
+        height: 38px;
+        width: 38px;
+    }
+    .header-inner {
+        height: 60px;
+    }
 }
 
 @media (max-width: 600px) {
