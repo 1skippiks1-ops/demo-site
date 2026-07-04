@@ -746,6 +746,7 @@ body {
     }
     .header-inner {
         height: 60px;
+        padding: 0 12px;
     }
     .nav-hide-mobile {
         display: none;
@@ -753,15 +754,17 @@ body {
     .mobile-menu-btn {
         display: none;
     }
-    .dots-menu {
-        display: block;
-    }
 }
 
 /* ---- Dots menu (mobile only) ---- */
 .dots-menu {
     display: none;
     position: relative;
+}
+@media (max-width: 860px) {
+    .dots-menu {
+        display: block;
+    }
 }
 .dots-btn {
     background: none;
