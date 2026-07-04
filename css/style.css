@@ -76,6 +76,7 @@ body {
 }
 .header-nav {
     display: flex;
+    align-items: center;
     gap: 1.5rem;
 }
 .nav-link {
@@ -235,10 +236,9 @@ body {
     border-bottom: 1px solid var(--line);
 }
 .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
 }
 .hero-eyebrow {
     display: inline-flex;
@@ -268,13 +268,8 @@ body {
 .hero-sub {
     font-size: 18px;
     color: var(--ink-soft);
-    max-width: 520px;
+    max-width: 640px;
     line-height: 1.65;
-}
-@media (max-width: 860px) {
-    .hero-inner {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* ---- Catalog section ---- */
