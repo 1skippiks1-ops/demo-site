@@ -39,9 +39,9 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.25rem;
+    padding: 0 2rem;
 }
 
 /* ---- Header ---- */
@@ -56,7 +56,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    height: 76px;
 }
 .logo {
     display: flex;
@@ -66,11 +66,12 @@ body {
     color: var(--ink);
 }
 .logo-img {
-    height: 56px;
+    height: 60px;
     width: auto;
+    object-fit: contain;
 }
 .logo-text {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--purple);
@@ -212,9 +213,15 @@ body {
 
 /* ---- Hero ---- */
 .hero {
-    padding: 5.5rem 0 4.5rem;
+    padding: 3.5rem 0 3rem;
     background: linear-gradient(135deg, #f0ebff 0%, #faf9ff 60%);
     border-bottom: 1px solid var(--line);
+}
+.hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
 }
 .hero-eyebrow {
     display: inline-flex;
@@ -226,12 +233,12 @@ body {
     text-transform: uppercase;
     color: var(--purple);
     background: var(--purple-mid);
-    padding: 4px 12px;
+    padding: 4px 14px;
     border-radius: 20px;
     margin-bottom: 1.25rem;
 }
 .hero-title {
-    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-size: clamp(2.4rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.04em;
@@ -244,8 +251,45 @@ body {
 .hero-sub {
     font-size: 18px;
     color: var(--ink-soft);
-    max-width: 480px;
-    line-height: 1.6;
+    max-width: 520px;
+    line-height: 1.65;
+}
+.hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+.hero-stat {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(108, 61, 255, 0.07);
+    flex: 1;
+    min-width: 130px;
+}
+.hero-stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--purple);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+.hero-stat-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+@media (max-width: 860px) {
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+    .hero-visual {
+        display: none;
+    }
 }
 
 /* ---- Catalog section ---- */
@@ -255,7 +299,7 @@ body {
 
 .catalog-layout {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 240px 1fr;
     gap: 2rem;
     align-items: start;
 }
@@ -358,8 +402,8 @@ body {
 /* ---- Product grid ---- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.5rem;
 }
 
 .product-card {
