@@ -18,18 +18,22 @@
                         />
                         <span class="logo-text">elementstore.az</span>
                     </a>
-                    <!-- Mobile hamburger -->
-                    <button
-                        class="mobile-menu-btn"
-                        id="mobileMenuBtn"
-                        aria-label="Menyu"
-                    >
+                    <!-- Mobile hamburger (desktop only) -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menyu">
                         <span></span><span></span><span></span>
                     </button>
                     <nav class="header-nav">
-                      <a href="index.html" class="nav-link active">Kataloq</a>
+                      <a href="index.html" class="nav-link active nav-hide-mobile">Kataloq</a>
                       <a href="#contact" class="nav-link">Əlaqə</a>
                       <a href="tel:+994703007513" class="nav-phone">📞 +994 70 300 75 13</a>
+                      <!-- Mobile three dots menu -->
+                      <div class="dots-menu">
+                        <button class="dots-btn" id="dotsBtn" aria-label="Menyu">⋮</button>
+                        <div class="dots-dropdown" id="dotsDropdown">
+                          <a href="index.html" class="dots-item">Kataloq</a>
+                          <button class="dots-item" onclick="openMobileSidebar();closeDots()">Kateqoriyalar</button>
+                        </div>
+                      </div>
                     </nav>
                 </div>
             </div>

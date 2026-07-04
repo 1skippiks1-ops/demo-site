@@ -188,6 +188,11 @@ function closeMobileSidebar() {
   document.body.style.overflow = "";
 }
 
+/* ---- Dots menu ---- */
+function closeDots() {
+  document.getElementById("dotsDropdown")?.classList.remove("open");
+}
+
 async function init() {
   document.title = getSiteName();
   const products = await loadProducts();
@@ -202,10 +207,21 @@ async function init() {
   buildSidebars(products);
   renderGrid(products);
 
-  // Mobile hamburger (header button)
+  // Mobile hamburger (header button — desktop only)
   document
     .getElementById("mobileMenuBtn")
-    .addEventListener("click", openMobileSidebar);
+    ?.addEventListener("click", openMobileSidebar);
+
+  // Dots menu (mobile)
+  const dotsBtn = document.getElementById("dotsBtn");
+  const dotsDropdown = document.getElementById("dotsDropdown");
+  if (dotsBtn) {
+    dotsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dotsDropdown.classList.toggle("open");
+    });
+    document.addEventListener("click", closeDots);
+  }
   // Mobile category trigger (inside catalog)
   document
     .getElementById("mobileCatTrigger")
