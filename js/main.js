@@ -2,28 +2,34 @@
    Kataloq — main.js
    ============================================ */
 
-const WA_NUMBER_FALLBACK = '994XXXXXXXXX';
+const WA_NUMBER_FALLBACK = "994XXXXXXXXX";
 
 // İrşad-dan götürülmüş kateqoriyalar (sabit sıra)
 const ALL_CATEGORIES = [
-  { key: 'Telefon və aksesuarlar',               icon: '📱' },
-  { key: 'Böyük məişət texnikası',               icon: '🫙' },
-  { key: 'Kiçik məişət texnikası',               icon: '🍳' },
-  { key: 'TV və Audio',                          icon: '📺' },
-  { key: 'Foto texnika',                         icon: '📷' },
-  { key: 'Notbuk, planşet və kompüter texnikası',icon: '💻' },
-  { key: 'Evə uyğun məhsullar',                  icon: '🏠' },
-  { key: 'Mebellər və tekstil',                  icon: '🛋️' },
-  { key: 'Nəqliyyat və Əyləncə',                 icon: '🚲' },
-  { key: 'İdman və sağlamlıq',                   icon: '💪' },
-  { key: 'Avtomobil üçün məhsullar',             icon: '🚗' },
-  { key: 'İnşaat',                               icon: '🔨' },
-  { key: 'Dəftərxana ləvazimatları',             icon: '✏️' },
+  { key: "Telefon və aksesuarlar", icon: "📱" },
+  { key: "Böyük məişət texnikası", icon: "🫙" },
+  { key: "Kiçik məişət texnikası", icon: "🍳" },
+  { key: "TV və Audio", icon: "📺" },
+  { key: "Foto texnika", icon: "📷" },
+  { key: "Notbuk, planşet və kompüter texnikası", icon: "💻" },
+  { key: "Evə uyğun məhsullar", icon: "🏠" },
+  { key: "Mebellər və tekstil", icon: "🛋️" },
+  { key: "Nəqliyyat və Əyləncə", icon: "🚲" },
+  { key: "İdman və sağlamlıq", icon: "💪" },
+  { key: "Avtomobil üçün məhsullar", icon: "🚗" },
+  { key: "İnşaat", icon: "🔨" },
+  { key: "Dəftərxana ləvazimatları", icon: "✏️" },
 ];
 
 async function loadProducts() {
+  // Admin paneli localStorage-a yazır — əvvəlcə onu yoxla
   try {
-    const res = await fetch('data/products.json?v=' + Date.now());
+    const local = localStorage.getItem("shop_products");
+    if (local) return JSON.parse(local);
+  } catch {}
+  // localStorage yoxdursa JSON faylından oxu
+  try {
+    const res = await fetch("data/products.json?v=" + Date.now());
     return await res.json();
   } catch {
     return [];
@@ -32,9 +38,11 @@ async function loadProducts() {
 
 function getSettings() {
   try {
-    const s = localStorage.getItem('shop_settings');
+    const s = localStorage.getItem("shop_settings");
     return s ? JSON.parse(s) : {};
-  } catch { return {}; }
+  } catch {
+    return {};
+  }
 }
 
 function getWANumber() {
@@ -44,7 +52,7 @@ function getWANumber() {
 
 function getSiteName() {
   const s = getSettings();
-  return s.siteName || 'ElementStore';
+  return s.siteName || "ElementStore";
 }
 
 function renderCard(p) {
@@ -80,48 +88,55 @@ function renderComingSoon(catKey) {
 }
 
 let currentProducts = [];
-let currentCat = 'all';
+let currentCat = "all";
 
 function setActiveCategory(cat, label) {
   currentCat = cat;
 
   // Desktop sidebar
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  document
+    .querySelectorAll(".cat-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
   // Mobile list
-  document.querySelectorAll('.mobile-cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  document
+    .querySelectorAll(".mobile-cat-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
   // Active label
-  const lbl = document.getElementById('activeCatLabel');
+  const lbl = document.getElementById("activeCatLabel");
   if (lbl) lbl.textContent = label;
 
   renderGrid(currentProducts, cat);
 }
 
 function buildSidebars(products) {
-  const activeCats = new Set(products.map(p => p.category));
+  const activeCats = new Set(products.map((p) => p.category));
 
-  const desktopList = document.getElementById('catList');
-  const mobileList  = document.getElementById('mobileCatList');
+  const desktopList = document.getElementById("catList");
+  const mobileList = document.getElementById("mobileCatList");
 
   // Clear and rebuild both lists
-  desktopList.innerHTML = '<li><button class="cat-btn active" data-cat="all">Hamısı</button></li>';
-  mobileList.innerHTML  = '<li><button class="mobile-cat-btn active" data-cat="all">Hamısı</button></li>';
+  desktopList.innerHTML =
+    '<li><button class="cat-btn active" data-cat="all">Hamısı</button></li>';
+  mobileList.innerHTML =
+    '<li><button class="mobile-cat-btn active" data-cat="all">Hamısı</button></li>';
 
   ALL_CATEGORIES.forEach(({ key, icon }) => {
     const hasProducts = activeCats.has(key);
 
     // Desktop
-    const dLi = document.createElement('li');
-    const dBtn = document.createElement('button');
-    dBtn.className = 'cat-btn' + (hasProducts ? '' : ' cat-btn--empty');
+    const dLi = document.createElement("li");
+    const dBtn = document.createElement("button");
+    dBtn.className = "cat-btn" + (hasProducts ? "" : " cat-btn--empty");
     dBtn.dataset.cat = key;
     dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${key}`;
     dLi.appendChild(dBtn);
     desktopList.appendChild(dLi);
 
     // Mobile
-    const mLi = document.createElement('li');
-    const mBtn = document.createElement('button');
-    mBtn.className = 'mobile-cat-btn' + (hasProducts ? '' : ' mobile-cat-btn--empty');
+    const mLi = document.createElement("li");
+    const mBtn = document.createElement("button");
+    mBtn.className =
+      "mobile-cat-btn" + (hasProducts ? "" : " mobile-cat-btn--empty");
     mBtn.dataset.cat = key;
     mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${key}`;
     mLi.appendChild(mBtn);
@@ -129,16 +144,16 @@ function buildSidebars(products) {
   });
 
   // Click handlers — desktop
-  desktopList.addEventListener('click', e => {
-    const btn = e.target.closest('.cat-btn');
+  desktopList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".cat-btn");
     if (!btn) return;
     const label = btn.textContent.trim();
     setActiveCategory(btn.dataset.cat, label);
   });
 
   // Click handlers — mobile
-  mobileList.addEventListener('click', e => {
-    const btn = e.target.closest('.mobile-cat-btn');
+  mobileList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".mobile-cat-btn");
     if (!btn) return;
     const label = btn.textContent.trim();
     setActiveCategory(btn.dataset.cat, label);
@@ -146,37 +161,37 @@ function buildSidebars(products) {
   });
 }
 
-function renderGrid(products, cat = 'all') {
-  const grid = document.getElementById('productGrid');
+function renderGrid(products, cat = "all") {
+  const grid = document.getElementById("productGrid");
 
-  if (cat === 'all') {
+  if (cat === "all") {
     if (!products.length) {
       grid.innerHTML = `<div class="empty-state"><h3>Məhsul tapılmadı</h3><p>Hələ məhsul əlavə edilməyib.</p></div>`;
       return;
     }
-    grid.innerHTML = products.map(renderCard).join('');
+    grid.innerHTML = products.map(renderCard).join("");
     return;
   }
 
-  const filtered = products.filter(p => p.category === cat);
+  const filtered = products.filter((p) => p.category === cat);
   if (!filtered.length) {
     grid.innerHTML = renderComingSoon(cat);
     return;
   }
-  grid.innerHTML = filtered.map(renderCard).join('');
+  grid.innerHTML = filtered.map(renderCard).join("");
 }
 
 /* ---- Mobile sidebar ---- */
 function openMobileSidebar() {
-  document.getElementById('mobileSidebar').classList.add('open');
-  document.getElementById('mobileOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.getElementById("mobileSidebar").classList.add("open");
+  document.getElementById("mobileOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
 }
 
 function closeMobileSidebar() {
-  document.getElementById('mobileSidebar').classList.remove('open');
-  document.getElementById('mobileOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.getElementById("mobileSidebar").classList.remove("open");
+  document.getElementById("mobileOverlay").classList.remove("open");
+  document.body.style.overflow = "";
 }
 
 async function init() {
@@ -185,7 +200,7 @@ async function init() {
   currentProducts = products;
 
   if (!products.length) {
-    document.getElementById('productGrid').innerHTML =
+    document.getElementById("productGrid").innerHTML =
       `<div class="empty-state"><h3>Məhsullar yüklənmir</h3><p>Zəhmət olmasa bir az sonra yenidən cəhd edin.</p></div>`;
     return;
   }
@@ -194,12 +209,20 @@ async function init() {
   renderGrid(products);
 
   // Mobile hamburger (header button)
-  document.getElementById('mobileMenuBtn').addEventListener('click', openMobileSidebar);
+  document
+    .getElementById("mobileMenuBtn")
+    .addEventListener("click", openMobileSidebar);
   // Mobile category trigger (inside catalog)
-  document.getElementById('mobileCatTrigger').addEventListener('click', openMobileSidebar);
+  document
+    .getElementById("mobileCatTrigger")
+    .addEventListener("click", openMobileSidebar);
   // Close sidebar
-  document.getElementById('mobileSidebarClose').addEventListener('click', closeMobileSidebar);
-  document.getElementById('mobileOverlay').addEventListener('click', closeMobileSidebar);
+  document
+    .getElementById("mobileSidebarClose")
+    .addEventListener("click", closeMobileSidebar);
+  document
+    .getElementById("mobileOverlay")
+    .addEventListener("click", closeMobileSidebar);
 }
 
 init();

@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="az">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin — ElementStore</title>
+        <link rel="stylesheet" href="css/admin.css" />
+    </head>
+    <body class="admin-body">
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="sidebar-logo">
+                    <img src="images/logo.png" alt="ElementStore" />
+                    <span class="sidebar-logo-text">elementstore.az</span>
+                </div>
+                <nav class="sidebar-nav">
+                    <a
+                        href="#"
+                        class="sidebar-link active"
+                        data-section="products"
+                    >
+                        <span class="sidebar-icon">📦</span> Məhsullar
+                    </a>
+                    <a href="#" class="sidebar-link" data-section="add">
+                        <span class="sidebar-icon">➕</span> Yeni məhsul
+                    </a>
+                    <a href="#" class="sidebar-link" data-section="settings">
+                        <span class="sidebar-icon">⚙️</span> Parametrlər
+                    </a>
+                </nav>
+                <div class="sidebar-bottom">
+                    <a
+                        href="../index.html"
+                        target="_blank"
+                        class="sidebar-link"
+                    >
+                        <span class="sidebar-icon">👁</span> Sayta bax
+                    </a>
+                </div>
+            </aside>
+
+            <main class="admin-main">
+                <section class="admin-section active" id="section-products">
+                    <div class="section-header">
+                        <h2 class="section-title">Məhsullar</h2>
+                        <button
+                            class="btn-primary"
+                            onclick="showSection('add')"
+                        >
+                            + Yeni məhsul
+                        </button>
+                    </div>
+                    <div class="products-table-wrap">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Məhsul</th>
+                                    <th>Kateqoriya</th>
+                                    <th>Qiymət</th>
+                                    <th>Status</th>
+                                    <th>Əməliyyat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="admin-section" id="section-add">
+                    <div class="section-header">
+                        <h2 class="section-title" id="formTitle">
+                            Yeni məhsul
+                        </h2>
+                        <button
+                            class="btn-outline"
+                            onclick="showSection('products')"
+                        >
+                            ← Geri
+                        </button>
+                    </div>
+                    <div class="form-card">
+                        <input type="hidden" id="editId" />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Məhsulun adı *</label>
+                                <input
+                                    type="text"
+                                    id="fName"
+                                    class="form-input"
+                                    placeholder="məs. Tefal Qazan"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Kateqoriya *</label>
+                                <select id="fCategory" class="form-input">
+                                    <option value="">-- Seçin --</option>
+                                    <option value="Telefon və aksesuarlar">
+                                        📱 Telefon və aksesuarlar
+                                    </option>
+                                    <option value="Böyük məişət texnikası">
+                                        🪙 Böyük məişət texnikası
+                                    </option>
+                                    <option value="Kiçik məişət texnikası">
+                                        🍳 Kiçik məişət texnikası
+                                    </option>
+                                    <option value="TV və Audio">
+                                        📺 TV və Audio
+                                    </option>
+                                    <option value="Foto texnika">
+                                        📷 Foto texnika
+                                    </option>
+                                    <option
+                                        value="Notbuk, planşət və kompüter texnikası"
+                                    >
+                                        💻 Notbuk, planşət və kompüter texnikası
+                                    </option>
+                                    <option value="Evə uyğun məhsullar">
+                                        🏠 Evə uyğun məhsullar
+                                    </option>
+                                    <option value="Mebellər və tekstil">
+                                        🛋️ Mebellər və tekstil
+                                    </option>
+                                    <option value="Nəqliyyat və Ǝyləncə">
+                                        🚲 Nəqliyyat və Ǝyləncə
+                                    </option>
+                                    <option value="İdman və sağlamlıq">
+                                        💪 İdman və sağlamlıq
+                                    </option>
+                                    <option value="Avtomobil üçün məhsullar">
+                                        🚗 Avtomobil üçün məhsullar
+                                    </option>
+                                    <option value="İnşaat">🔨 İnşaat</option>
+                                    <option value="Dəftərxana ləvazimatları">
+                                        ✏️ Dəftərxana ləvazimatları
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Qiymət (₼) *</label>
+                                <input
+                                    type="number"
+                                    id="fPrice"
+                                    class="form-input"
+                                    placeholder="0"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stok vəziyyəti</label>
+                                <select id="fStock" class="form-input">
+                                    <option value="true">Stokda var</option>
+                                    <option value="false">Stokda yoxdur</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Təsvir *</label>
+                            <textarea
+                                id="fDesc"
+                                class="form-input form-textarea"
+                                placeholder="Məhsulun xüsusiyyətləri, ölçüsü, rəngi..."
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp mesajı</label>
+                            <input
+                                type="text"
+                                id="fWhatsapp"
+                                class="form-input"
+                                placeholder="Salam! Bu məhsul haqqında məlumat almaq istəyirəm."
+                            />
+                            <p class="form-hint">
+                                Müştəri "Sifariş et" düyməsinə basanda bu mesaj
+                                WhatsApp-a göndəriləcək
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"
+                                >Şəkil (isteğe bağlı)</label
+                            >
+                            <div
+                                class="image-upload-area"
+                                id="imageUploadArea"
+                                onclick="
+                                    document
+                                        .getElementById('fImageFile')
+                                        .click()
+                                "
+                            >
+                                <input
+                                    type="file"
+                                    id="fImageFile"
+                                    accept="image/*"
+                                    style="display: none"
+                                    onchange="handleImageUpload(event)"
+                                />
+                                <input type="hidden" id="fImage" />
+                                <div
+                                    id="imagePreview"
+                                    class="image-preview-empty"
+                                >
+                                    <span>🖼️</span>
+                                    <p>Şəkil seçmək üçün klikləyin</p>
+                                    <small>JPG, PNG, WEBP · Maks 5MB</small>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn-outline"
+                                style="
+                                    margin-top: 0.5rem;
+                                    font-size: 12px;
+                                    padding: 5px 12px;
+                                "
+                                onclick="clearImage()"
+                            >
+                                Şəkli sil
+                            </button>
+                            <p class="form-hint">
+                                Şəkli Google Drive, Imgur və ya başqa hostinqdə
+                                saxlayın, linkini daxil edin
+                            </p>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-outline" onclick="clearForm()">
+                                Sıfırla
+                            </button>
+                            <button class="btn-primary" onclick="saveProduct()">
+                                Yadda saxla
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-section" id="section-settings">
+                    <div class="section-header">
+                        <h2 class="section-title">Parametrlər</h2>
+                    </div>
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp nömrəsi</label>
+                            <input
+                                type="text"
+                                id="settingsWA"
+                                class="form-input"
+                                placeholder="994XXXXXXXXX"
+                            />
+                            <p class="form-hint">
+                                Ölkə kodu ilə, boşluqsuz (994501234567)
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sayt adı</label>
+                            <input
+                                type="text"
+                                id="settingsName"
+                                class="form-input"
+                                value="ElementStore"
+                            />
+                        </div>
+                        <div class="form-actions">
+                            <button
+                                class="btn-primary"
+                                onclick="saveSettings()"
+                            >
+                                Yadda saxla
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="form-card"
+                        style="
+                            margin-top: 1.5rem;
+                            border-color: #bbf7d0;
+                            background: #f0fdf4;
+                        "
+                    >
+                        <h3
+                            style="
+                                font-size: 14px;
+                                font-weight: 700;
+                                margin: 0 0 0.4rem;
+                                color: #166534;
+                            "
+                        >
+                            ✅ Lokal iş axını
+                        </h3>
+                        <p
+                            class="form-hint"
+                            style="color: #166534; margin-bottom: 0.5rem"
+                        >
+                            Məhsul əlavə etdikdə avtomatik localStorage-a
+                            yazılır.<br />
+                            <strong>index.html</strong>-i açandı məhsulları
+                            görəcəksən — heç bir əlavə addım lazım deyil.
+                        </p>
+                    </div>
+
+                    <div class="form-card" style="margin-top: 1.5rem">
+                        <h3
+                            style="
+                                font-size: 14px;
+                                font-weight: 700;
+                                margin: 0 0 0.5rem;
+                                color: #0f0a1e;
+                            "
+                        >
+                            📤 Canlı sayt üçün ixrac
+                        </h3>
+                        <p class="form-hint" style="margin-bottom: 1rem">
+                            Yüklənən faylı <code>data/products.json</code> ilə
+                            əvəz edin.
+                        </p>
+                        <button class="btn-outline" onclick="exportJSON()">
+                            📥 products.json yüklə
+                        </button>
+                    </div>
+
+                    <div
+                        class="form-card"
+                        style="
+                            margin-top: 1.5rem;
+                            border-color: #fde68a;
+                            background: #fffbeb;
+                        "
+                    >
+                        <h3
+                            style="
+                                font-size: 14px;
+                                font-weight: 700;
+                                margin: 0 0 0.5rem;
+                                color: #92400e;
+                            "
+                        >
+                            ⚠️ Xatırlatma
+                        </h3>
+                        <p class="form-hint" style="color: #92400e">
+                            Bu fayl yalnız öz kompüterinizdə işləməlidir.
+                            <strong
+                                >admin.html-i GitHub-a upload etməyin.</strong
+                            >
+                        </p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <div class="toast" id="toast"></div>
+        <script src="js/admin.js"></script>
+    </body>
+</html>
