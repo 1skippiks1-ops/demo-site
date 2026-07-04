@@ -10,7 +10,7 @@ document.querySelectorAll(".sidebar-link[data-section]").forEach((link) => {
   });
 });
 
-function showSection(name) {
+function showSection(name, resetForm = true) {
   document
     .querySelectorAll(".admin-section")
     .forEach((s) => s.classList.remove("active"));
@@ -24,7 +24,7 @@ function showSection(name) {
   const link = document.querySelector(`.sidebar-link[data-section="${name}"]`);
   if (link) link.classList.add("active");
 
-  if (name === "add") {
+  if (name === "add" && resetForm) {
     clearForm();
     document.getElementById("formTitle").textContent = "Yeni məhsul";
   }
@@ -158,8 +158,8 @@ async function editProduct(id) {
     preview.innerHTML = `<span>🖼️</span><p>Şəkil seçmək üçün klikləyin</p><small>JPG, PNG, WEBP · Maks 5MB</small>`;
   }
 
+  showSection("add", false);
   document.getElementById("formTitle").textContent = "Məhsulu düzəlt";
-  showSection("add");
 }
 
 // ---- Delete product ----
