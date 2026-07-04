@@ -2,7 +2,7 @@
    Kataloq — main.js
    ============================================ */
 
-const WA_NUMBER_FALLBACK = "994XXXXXXXXX";
+const WA_NUMBER_FALLBACK = "994703007513";
 
 // İrşad-dan götürülmüş kateqoriyalar (sabit sıra)
 const ALL_CATEGORIES = [

@@ -89,6 +89,25 @@ body {
 .nav-link.active {
     color: var(--purple);
 }
+.nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--purple);
+    text-decoration: none;
+    background: var(--purple-light);
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    transition:
+        background 0.15s,
+        color 0.15s;
+    white-space: nowrap;
+}
+.nav-phone:hover {
+    background: var(--purple-mid);
+}
 
 /* Mobile hamburger button (hidden on desktop) */
 .mobile-menu-btn {
@@ -252,41 +271,9 @@ body {
     max-width: 520px;
     line-height: 1.65;
 }
-.hero-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-}
-.hero-stat {
-    background: var(--white);
-    border: 1.5px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(108, 61, 255, 0.07);
-    flex: 1;
-    min-width: 130px;
-}
-.hero-stat-num {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--purple);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-}
-.hero-stat-label {
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-weight: 500;
-}
 @media (max-width: 860px) {
     .hero-inner {
         grid-template-columns: 1fr;
-    }
-    .hero-visual {
-        display: none;
     }
 }
 
