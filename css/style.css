@@ -746,7 +746,11 @@ body {
     }
     .header-inner {
         height: 60px;
-        padding: 0 12px;
+        padding: 0 14px;
+    }
+    .site-header .container {
+        padding: 0;
+        width: 100%;
     }
     .nav-hide-mobile {
         display: none;
