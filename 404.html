@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Səhifə tapılmadı — ElementStore</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo-icon.svg" type="image/svg+xml">
+<style>
+  .notfound {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    gap: 1rem;
+  }
+  .notfound-code {
+    font-size: 6rem;
+    font-weight: 800;
+    color: var(--purple-mid);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .notfound-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .notfound-sub {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 360px;
+  }
+  .notfound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--purple);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    margin-top: .5rem;
+    transition: background .15s;
+  }
+  .notfound-btn:hover { background: var(--purple-dark); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.svg" alt="ElementStore" class="logo-img">
+        <span class="logo-text">elementstore.az</span>
+      </a>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="notfound">
+    <div class="notfound-code">404</div>
+    <h1 class="notfound-title">Səhifə tapılmadı</h1>
+    <p class="notfound-sub">Axtardığınız səhifə mövcud deyil və ya köçürülüb.</p>
+    <a href="index.html" class="notfound-btn">← Ana səhifəyə qayıt</a>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 <a href="index.html">elementstore.az</a> · Bütün hüquqlar qorunur</p>
+  </div>
+</footer>
+</body>
+</html>
