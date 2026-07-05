@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="az">
+<html lang="az" data-lang="az">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ElementStore — Ev Məişət Əşyaları</title>
-        <link rel="icon" href="images/logo-icon.svg" type="image/svg+xml">
+        <link rel="icon" href="images/logo-icon.svg" type="image/svg+xml" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
@@ -20,12 +20,36 @@
                         <span class="logo-text">elementstore.az</span>
                     </a>
                     <nav class="header-nav">
-                      <a href="index.html" class="nav-link active nav-hide-mobile">Kataloq</a>
-                      <a href="#contact" class="nav-link">Əlaqə</a>
-                      <a href="tel:+994703007513" class="nav-phone">📞 +994 70 300 75 13</a>
-                      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menyu">
-                        <span></span><span></span><span></span>
-                      </button>
+                        <a
+                            href="index.html"
+                            class="nav-link active nav-hide-mobile"
+                            data-i18n="nav_catalog"
+                            >Kataloq</a
+                        >
+                        <a
+                            href="#contact"
+                            class="nav-link"
+                            data-i18n="nav_contact"
+                            >Əlaqə</a
+                        >
+                        <a href="tel:+994703007513" class="nav-phone"
+                            >📞 +994 70 300 75 13</a
+                        >
+                        <!-- Language switcher -->
+                        <div class="lang-switcher">
+                            <button class="lang-btn active" data-lang="az">
+                                AZ
+                            </button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                            <button class="lang-btn" data-lang="ru">RU</button>
+                        </div>
+                        <button
+                            class="mobile-menu-btn"
+                            id="mobileMenuBtn"
+                            aria-label="Menyu"
+                        >
+                            <span></span><span></span><span></span>
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -35,14 +59,18 @@
         <div class="mobile-overlay" id="mobileOverlay"></div>
         <aside class="mobile-sidebar" id="mobileSidebar">
             <div class="mobile-sidebar-header">
-                <span>Kateqoriyalar</span>
+                <span data-i18n="categories">Kateqoriyalar</span>
                 <button class="mobile-close-btn" id="mobileSidebarClose">
                     ✕
                 </button>
             </div>
             <ul class="mobile-cat-list" id="mobileCatList">
                 <li>
-                    <button class="mobile-cat-btn active" data-cat="all">
+                    <button
+                        class="mobile-cat-btn active"
+                        data-cat="all"
+                        data-i18n="all"
+                    >
                         Hamısı
                     </button>
                 </li>
@@ -50,38 +78,215 @@
         </aside>
 
         <main>
+            <!-- Hero -->
             <section class="hero">
                 <div class="container">
                     <div class="hero-inner">
                         <div class="hero-content">
                             <p class="hero-eyebrow">
-                                ✦ Keyfiyyətli məişət əşyaları
+                                ✦
+                                <span data-i18n="hero_eyebrow"
+                                    >Keyfiyyətli məişət əşyaları</span
+                                >
                             </p>
                             <h1 class="hero-title">
-                                Eviniz üçün<br /><span>ən yaxşısı</span>
+                                <span data-i18n="hero_title1">Eviniz üçün</span
+                                ><br />
+                                <span data-i18n="hero_title2">ən yaxşısı</span>
                             </h1>
-                            <p class="hero-sub">
+                            <p class="hero-sub" data-i18n="hero_sub">
                                 Seçin, məlumat alın, sifariş edin — WhatsApp
                                 üzərindən birbaşa və sürətlə.
                             </p>
                         </div>
 
+                        <!-- Discount Banner -->
+                        <div class="discount-banner">
+                            <div class="discount-badge">
+                                <span class="discount-percent">-20%</span>
+                                <span
+                                    class="discount-label"
+                                    data-i18n="discount_label"
+                                    >XÜSUSİ ENDİRİM</span
+                                >
+                            </div>
+                            <p class="discount-text" data-i18n="discount_text">
+                                Seçilmiş məhsullarda mövsümi endirim!
+                            </p>
+                            <a
+                                href="#catalog"
+                                class="discount-cta"
+                                data-i18n="discount_cta"
+                                >İndi bax →</a
+                            >
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="catalog-section">
+            <!-- Stats Bar -->
+            <section class="stats-bar">
+                <div class="container">
+                    <div class="stats-inner">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <!-- Store icon -->
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M3 9l1-5h16l1 5" />
+                                    <path
+                                        d="M3 9h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z"
+                                    />
+                                    <path d="M9 9v12M15 9v12" />
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <strong>56</strong>
+                                <span data-i18n="stat_stores">mağaza</span>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <!-- Product/tablet icon -->
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        x="5"
+                                        y="2"
+                                        width="14"
+                                        height="20"
+                                        rx="2"
+                                    />
+                                    <line x1="5" y1="6" x2="19" y2="6" />
+                                    <line x1="5" y1="18" x2="19" y2="18" />
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <strong>40 000+</strong>
+                                <span data-i18n="stat_products">seçim</span>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <!-- Fast delivery icon -->
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        x="1"
+                                        y="8"
+                                        width="14"
+                                        height="9"
+                                        rx="1"
+                                    />
+                                    <path d="M15 12h4l3 3v4h-7V12z" />
+                                    <circle cx="5.5" cy="19.5" r="1.5" />
+                                    <circle cx="18.5" cy="19.5" r="1.5" />
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <strong data-i18n="stat_delivery_title"
+                                    >Sürətli</strong
+                                >
+                                <span data-i18n="stat_delivery"
+                                    >çatdırılma</span
+                                >
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <!-- Guarantee icon -->
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"
+                                    />
+                                    <polyline points="9 12 11 14 15 10" />
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <strong data-i18n="stat_warranty_title"
+                                    >Rəsmi</strong
+                                >
+                                <span data-i18n="stat_warranty">zəmanət</span>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <!-- Shopping cart icon -->
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <circle cx="9" cy="21" r="1" />
+                                    <circle cx="20" cy="21" r="1" />
+                                    <path
+                                        d="M1 1h4l2.68 13.39a2 2 0 001.98 1.61h9.72a2 2 0 001.98-1.61L23 6H6"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <strong data-i18n="stat_shopping_title"
+                                    >Sürətli</strong
+                                >
+                                <span data-i18n="stat_shopping"
+                                    >alış-veriş</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Catalog -->
+            <section class="catalog-section" id="catalog">
                 <div class="container">
                     <div class="catalog-layout">
                         <!-- Desktop sidebar -->
                         <aside class="cat-sidebar">
-                            <div class="cat-sidebar-title">Kateqoriyalar</div>
+                            <div
+                                class="cat-sidebar-title"
+                                data-i18n="categories"
+                            >
+                                Kateqoriyalar
+                            </div>
                             <ul class="cat-list" id="catList">
                                 <li>
                                     <button
                                         class="cat-btn active"
                                         data-cat="all"
+                                        data-i18n="all"
                                     >
                                         Hamısı
                                     </button>
@@ -124,7 +329,9 @@
                                             fill="currentColor"
                                         />
                                     </svg>
-                                    Kateqoriyalar
+                                    <span data-i18n="categories"
+                                        >Kateqoriyalar</span
+                                    >
                                 </button>
                                 <span
                                     class="active-cat-label"
@@ -133,7 +340,7 @@
                                 >
                             </div>
                             <div class="product-grid" id="productGrid">
-                                <div class="loading-state">
+                                <div class="loading-state" data-i18n="loading">
                                     Məhsullar yüklənir...
                                 </div>
                             </div>
@@ -142,18 +349,21 @@
                 </div>
             </section>
 
+            <!-- Contact section -->
             <section class="contact-section" id="contact">
                 <div class="container">
                     <div class="contact-card">
-                        <p class="contact-label">Sualınız var?</p>
-                        <h2 class="contact-title">
+                        <p class="contact-label" data-i18n="contact_label">
+                            Sualınız var?
+                        </p>
+                        <h2 class="contact-title" data-i18n="contact_title">
                             WhatsApp-da əlaqə saxlayın
                         </h2>
-                        <p class="contact-sub">
-                            İş saatları: həftə içi 09:00–18:00
+                        <p class="contact-sub" data-i18n="contact_hours">
+                            İş saatları: 7/24
                         </p>
                         <a
-                            <a href="https://wa.me/994703007513"
+                            href="https://wa.me/994703007513"
                             target="_blank"
                             class="btn-whatsapp"
                         >
@@ -168,8 +378,85 @@
                                     d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
                                 />
                             </svg>
-                            WhatsApp-a yaz
+                            <span data-i18n="contact_btn">WhatsApp-a yaz</span>
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us section -->
+            <section class="about-section" id="about">
+                <div class="container">
+                    <div class="about-inner">
+                        <div class="about-logo-col">
+                            <div class="about-logo-wrap">
+                                <img
+                                    src="images/logo-icon.svg"
+                                    alt="ElementStore logo"
+                                    class="about-logo-img"
+                                />
+                                <span class="about-logo-text"
+                                    >elementstore.az</span
+                                >
+                            </div>
+                            <div class="about-badges">
+                                <span class="about-badge"
+                                    >🏆
+                                    <span data-i18n="about_badge1"
+                                        >Etibarlı brend</span
+                                    ></span
+                                >
+                                <span class="about-badge"
+                                    >✅
+                                    <span data-i18n="about_badge2"
+                                        >Rəsmi zəmanət</span
+                                    ></span
+                                >
+                                <span class="about-badge"
+                                    >🚀
+                                    <span data-i18n="about_badge3"
+                                        >Sürətli çatdırılma</span
+                                    ></span
+                                >
+                            </div>
+                        </div>
+                        <div class="about-content">
+                            <p class="about-eyebrow" data-i18n="about_eyebrow">
+                                Şirkətimiz Haqqında
+                            </p>
+                            <h2 class="about-title" data-i18n="about_title">
+                                ElementStore — Eviniz üçün ən yaxşı seçim
+                            </h2>
+                            <p class="about-text" data-i18n="about_text1">
+                                ElementStore Azərbaycanda ev məişət texnikası,
+                                elektronika və digər ev üçün lazımlı məhsulların
+                                satışı ilə məşğul olan aparıcı ticarət
+                                platformasıdır. Biz müştərilərimizə yüksək
+                                keyfiyyətli məhsullar, rəqabətli qiymətlər və
+                                əla servis təklif edirik.
+                            </p>
+                            <p class="about-text" data-i18n="about_text2">
+                                56-dan çox mağaza şəbəkəmiz, 40 mindən artıq
+                                məhsul çeşidimiz və 7/24 WhatsApp dəstəyimiz ilə
+                                hər zaman sizin yanınızdayıq.
+                            </p>
+                            <div class="about-stats-row">
+                                <div class="about-stat">
+                                    <strong>56+</strong>
+                                    <span data-i18n="stat_stores">mağaza</span>
+                                </div>
+                                <div class="about-stat">
+                                    <strong>40 000+</strong>
+                                    <span data-i18n="stat_products">seçim</span>
+                                </div>
+                                <div class="about-stat">
+                                    <strong>7/24</strong>
+                                    <span data-i18n="about_support"
+                                        >dəstək</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -177,13 +464,33 @@
 
         <footer class="site-footer">
             <div class="container">
-                <p>
-                    © 2025 <a href="index.html">elementstore.az</a> · Bütün
-                    hüquqlar qorunur
-                </p>
+                <div class="footer-inner">
+                    <a href="index.html" class="footer-logo">
+                        <img
+                            src="images/logo-icon.svg"
+                            alt="e"
+                            class="footer-logo-img"
+                        />
+                        <span>elementstore.az</span>
+                    </a>
+                    <p class="footer-copy">
+                        © 2025 <a href="index.html">elementstore.az</a> ·
+                        <span data-i18n="footer_rights"
+                            >Bütün hüquqlar qorunur</span
+                        >
+                    </p>
+                    <div class="footer-lang">
+                        <button class="lang-btn active" data-lang="az">
+                            AZ
+                        </button>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="ru">RU</button>
+                    </div>
+                </div>
             </div>
         </footer>
 
+        <script src="js/i18n.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
