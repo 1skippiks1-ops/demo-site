@@ -58,7 +58,12 @@ function updateMeta(p) {
   document.getElementById("metaOgDescription")?.setAttribute("content", desc);
   document.getElementById("metaOgUrl")?.setAttribute("content", url);
   if (p.image) {
-    document.getElementById("metaOgImage")?.setAttribute("content", p.image);
+    // og:image needs an absolute URL — p.image is a data URI (old products)
+    // or a relative path (new file-based products), so resolve it either way.
+    const absoluteImage = p.image.startsWith("data:")
+      ? p.image
+      : new URL(p.image, window.location.href).href;
+    document.getElementById("metaOgImage")?.setAttribute("content", absoluteImage);
   }
 }
 
