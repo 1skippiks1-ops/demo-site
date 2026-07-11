@@ -23,7 +23,7 @@ const ALL_CATEGORIES = [
 
 async function loadProducts() {
   try {
-    const res = await fetch("data/products.json?v=" + Date.now());
+    const res = await fetch("data/products.json");
     return await res.json();
   } catch {
     return [];
@@ -49,42 +49,58 @@ function getSiteName() {
   return s.siteName || "ElementStore";
 }
 
+/* ---- Discount helpers ----
+   getCurrentLang / t / categoryLabel / localized are shared helpers
+   defined in i18n.js, which loads before this file. ---- */
+function discountPercent(p) {
+  const price = parseFloat(p.price);
+  const oldPrice = parseFloat(p.oldPrice);
+  if (!oldPrice || !price || oldPrice <= price) return 0;
+  return Math.round(((oldPrice - price) / oldPrice) * 100);
+}
+
 function renderCard(p) {
   const imgHtml = p.image
-    ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+    ? `<img src="${p.image}" alt="${localized(p, "name")}" loading="lazy">`
     : `<div class="product-image-placeholder">🏠</div>`;
 
   const stockHtml = p.inStock
-    ? `<span class="stock-badge in">Stokda var</span>`
-    : `<span class="stock-badge out">Stokda yoxdur</span>`;
+    ? `<span class="stock-badge in">${t("stock_in")}</span>`
+    : `<span class="stock-badge out">${t("stock_out")}</span>`;
+
+  const pct = discountPercent(p);
+  const priceHtml =
+    pct > 0
+      ? `<p class="product-price">${p.price} <span>₼</span> <span class="product-price-old">${p.oldPrice} ₼</span> <span class="product-discount-badge">-${pct}%</span></p>`
+      : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
   return `
     <a href="product.html?id=${p.id}" class="product-card">
       <div class="product-image">${imgHtml}</div>
       <div class="product-body">
-        <p class="product-category">${p.category}</p>
-        <h3 class="product-name">${p.name}</h3>
-        <p class="product-desc">${p.description}</p>
+        <p class="product-category">${categoryLabel(p.category)}</p>
+        <h3 class="product-name">${localized(p, "name")}</h3>
+        <p class="product-desc">${localized(p, "description")}</p>
         <div class="product-footer">
-          <p class="product-price">${p.price} <span>₼</span></p>
+          ${priceHtml}
           ${stockHtml}
         </div>
       </div>
     </a>`;
 }
 
-function renderComingSoon(catKey) {
+function renderComingSoon() {
   return `
     <div class="coming-soon-card">
       <div class="coming-soon-icon">🕐</div>
-      <p class="coming-soon-text">Tezliklə məhsul əlavə olunacaq</p>
+      <p class="coming-soon-text">${t("coming_soon")}</p>
     </div>`;
 }
 
 let currentProducts = [];
 let currentCat = "all";
 
-function setActiveCategory(cat, label) {
+function setActiveCategory(cat) {
   currentCat = cat;
 
   // Desktop sidebar
@@ -97,7 +113,7 @@ function setActiveCategory(cat, label) {
     .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
   // Active label
   const lbl = document.getElementById("activeCatLabel");
-  if (lbl) lbl.textContent = label;
+  if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
 
   renderGrid(currentProducts, cat);
 }
@@ -108,50 +124,56 @@ function buildSidebars(products) {
   const desktopList = document.getElementById("catList");
   const mobileList = document.getElementById("mobileCatList");
 
-  // Clear and rebuild both lists
-  desktopList.innerHTML =
-    '<li><button class="cat-btn active" data-cat="all">Hamısı</button></li>';
-  mobileList.innerHTML =
-    '<li><button class="mobile-cat-btn active" data-cat="all">Hamısı</button></li>';
-
-  ALL_CATEGORIES.forEach(({ key, icon }) => {
-    const hasProducts = activeCats.has(key);
-
-    // Desktop
-    const dLi = document.createElement("li");
-    const dBtn = document.createElement("button");
-    dBtn.className = "cat-btn" + (hasProducts ? "" : " cat-btn--empty");
-    dBtn.dataset.cat = key;
-    dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${key}`;
-    dLi.appendChild(dBtn);
-    desktopList.appendChild(dLi);
-
-    // Mobile
-    const mLi = document.createElement("li");
-    const mBtn = document.createElement("button");
-    mBtn.className =
-      "mobile-cat-btn" + (hasProducts ? "" : " mobile-cat-btn--empty");
-    mBtn.dataset.cat = key;
-    mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${key}`;
-    mLi.appendChild(mBtn);
-    mobileList.appendChild(mLi);
-  });
+  renderCategoryButtons(desktopList, mobileList, activeCats);
 
   // Click handlers — desktop
   desktopList.addEventListener("click", (e) => {
     const btn = e.target.closest(".cat-btn");
     if (!btn) return;
-    const label = btn.textContent.trim();
-    setActiveCategory(btn.dataset.cat, label);
+    setActiveCategory(btn.dataset.cat);
   });
 
   // Click handlers — mobile
   mobileList.addEventListener("click", (e) => {
     const btn = e.target.closest(".mobile-cat-btn");
     if (!btn) return;
-    const label = btn.textContent.trim();
-    setActiveCategory(btn.dataset.cat, label);
+    setActiveCategory(btn.dataset.cat);
     closeMobileSidebar();
+  });
+}
+
+function renderCategoryButtons(desktopList, mobileList, activeCats) {
+  const allLabel = t("all");
+
+  desktopList.innerHTML = `<li><button class="cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
+  mobileList.innerHTML = `<li><button class="mobile-cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
+
+  ALL_CATEGORIES.forEach(({ key, icon }) => {
+    const hasProducts = activeCats.has(key);
+    const label = categoryLabel(key);
+    const isActive = currentCat === key;
+
+    const dLi = document.createElement("li");
+    const dBtn = document.createElement("button");
+    dBtn.className =
+      "cat-btn" +
+      (hasProducts ? "" : " cat-btn--empty") +
+      (isActive ? " active" : "");
+    dBtn.dataset.cat = key;
+    dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
+    dLi.appendChild(dBtn);
+    desktopList.appendChild(dLi);
+
+    const mLi = document.createElement("li");
+    const mBtn = document.createElement("button");
+    mBtn.className =
+      "mobile-cat-btn" +
+      (hasProducts ? "" : " mobile-cat-btn--empty") +
+      (isActive ? " active" : "");
+    mBtn.dataset.cat = key;
+    mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
+    mLi.appendChild(mBtn);
+    mobileList.appendChild(mLi);
   });
 }
 
@@ -160,7 +182,7 @@ function renderGrid(products, cat = "all") {
 
   if (cat === "all") {
     if (!products.length) {
-      grid.innerHTML = `<div class="empty-state"><h3>Məhsul tapılmadı</h3><p>Hələ məhsul əlavə edilməyib.</p></div>`;
+      grid.innerHTML = `<div class="empty-state"><h3>${t("empty_title")}</h3><p>${t("empty_sub")}</p></div>`;
       return;
     }
     grid.innerHTML = products.map(renderCard).join("");
@@ -169,11 +191,39 @@ function renderGrid(products, cat = "all") {
 
   const filtered = products.filter((p) => p.category === cat);
   if (!filtered.length) {
-    grid.innerHTML = renderComingSoon(cat);
+    grid.innerHTML = renderComingSoon();
     return;
   }
   grid.innerHTML = filtered.map(renderCard).join("");
 }
+
+/* ---- Hero discount banner: only show when a real discount exists ---- */
+function updateDiscountBanner(products) {
+  const banner = document.getElementById("discountBanner");
+  if (!banner) return;
+
+  const best = products.reduce((max, p) => Math.max(max, discountPercent(p)), 0);
+
+  if (best <= 0) {
+    banner.style.display = "none";
+    return;
+  }
+  banner.style.display = "";
+  const pctEl = document.getElementById("discountPercent");
+  if (pctEl) pctEl.textContent = `-${best}%`;
+}
+
+/* ---- Re-render dynamic (non data-i18n) content when language changes ---- */
+window.addEventListener("shop:langchange", () => {
+  if (!currentProducts.length) return;
+  const activeCats = new Set(currentProducts.map((p) => p.category));
+  renderCategoryButtons(
+    document.getElementById("catList"),
+    document.getElementById("mobileCatList"),
+    activeCats,
+  );
+  renderGrid(currentProducts, currentCat);
+});
 
 /* ---- Mobile sidebar ---- */
 function openMobileSidebar() {
@@ -195,12 +245,15 @@ async function init() {
 
   if (!products.length) {
     document.getElementById("productGrid").innerHTML =
-      `<div class="empty-state"><h3>Məhsullar yüklənmir</h3><p>Zəhmət olmasa bir az sonra yenidən cəhd edin.</p></div>`;
+      `<div class="empty-state"><h3>${t("load_fail_title")}</h3><p>${t("load_fail_sub")}</p></div>`;
+    const banner = document.getElementById("discountBanner");
+    if (banner) banner.style.display = "none";
     return;
   }
 
   buildSidebars(products);
   renderGrid(products);
+  updateDiscountBanner(products);
 
   document
     .getElementById("mobileMenuBtn")

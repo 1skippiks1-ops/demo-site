@@ -1,0 +1,2 @@
+# Local-only admin tool — never deploy/commit (no auth, browser-only)
+local-shop/
