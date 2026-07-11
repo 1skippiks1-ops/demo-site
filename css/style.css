@@ -311,17 +311,17 @@ body {
 
 /* ---- Campaign Banner ---- */
 .campaign-banner {
-    background: linear-gradient(135deg, var(--flame) 0%, var(--flame-dark) 100%);
+    background: linear-gradient(135deg, #150c0a 0%, var(--flame-dark) 130%);
     border-radius: var(--radius-lg);
-    padding: 2rem 2.25rem;
+    padding: 3rem 3.25rem;
     color: var(--white);
-    min-width: 220px;
-    max-width: 320px;
+    min-width: 330px;
+    max-width: 480px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    box-shadow: 0 8px 32px rgba(232, 80, 31, 0.3);
+    gap: 1.1rem;
+    box-shadow: 0 8px 32px rgba(15, 8, 6, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -333,48 +333,48 @@ body {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
 }
 .campaign-badge {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 .campaign-eyebrow {
-    font-size: 1.4rem;
+    font-size: 2.1rem;
     line-height: 1;
 }
 .campaign-title {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: -0.01em;
 }
 .campaign-text {
-    font-size: 14px;
+    font-size: 21px;
     line-height: 1.5;
     opacity: 0.92;
 }
 .campaign-timer {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 .campaign-timer-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.14);
     border-radius: var(--radius-sm);
-    padding: 6px 4px;
-    min-width: 48px;
+    padding: 9px 6px;
+    min-width: 72px;
 }
 .campaign-timer-num {
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: 800;
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
 }
 .campaign-timer-label {
-    font-size: 10px;
+    font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     opacity: 0.85;
@@ -645,16 +645,6 @@ body {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-.product-desc {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 1rem;
 }
 .product-footer {
     display: flex;
@@ -1227,9 +1217,6 @@ body {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
-    }
-    .product-desc {
-        display: none;
     }
     .product-price {
         font-size: 1rem;

@@ -102,7 +102,6 @@ function renderCard(p) {
       <div class="product-body">
         <p class="product-category">${categoryLabel(p.category)}</p>
         <h3 class="product-name">${localized(p, "name")}</h3>
-        <p class="product-desc">${localized(p, "description")}</p>
         <div class="product-footer">
           ${priceHtml}
           ${stockHtml}
@@ -237,7 +236,8 @@ function renderFeaturedSection(products) {
 /* ---- Campaign banner + countdown timer ----
    Reads data/campaign.json (a static file, same pattern as products.json,
    so every visitor — not just the admin's own browser — sees the same
-   countdown). Hidden entirely if disabled, missing, or already ended. ---- */
+   countdown). Counts down to the campaign's start date; hidden entirely
+   if disabled, missing, or the start date has already passed. ---- */
 let currentCampaign = null;
 let campaignTimerHandle = null;
 
@@ -248,13 +248,13 @@ function stopCampaignTimer() {
   }
 }
 
-function startCampaignTimer(endDate) {
+function startCampaignTimer(targetDate) {
   stopCampaignTimer();
   const banner = document.getElementById("campaignBanner");
   const pad = (n) => String(n).padStart(2, "0");
 
   function tick() {
-    const diff = endDate.getTime() - Date.now();
+    const diff = targetDate.getTime() - Date.now();
     if (diff <= 0) {
       stopCampaignTimer();
       if (banner) banner.style.display = "none";
@@ -282,13 +282,15 @@ function setupCampaign(campaign) {
   const banner = document.getElementById("campaignBanner");
   if (!banner) return;
 
-  if (!campaign || !campaign.enabled || !campaign.endDate) {
+  if (!campaign || !campaign.enabled || !campaign.startDate) {
     banner.style.display = "none";
     return;
   }
 
-  const end = new Date(campaign.endDate);
-  if (isNaN(end.getTime()) || end.getTime() <= Date.now()) {
+  // Counts down to the campaign's start — once that date arrives the
+  // "coming soon" banner has done its job, so it hides itself.
+  const target = new Date(campaign.startDate);
+  if (isNaN(target.getTime()) || target.getTime() <= Date.now()) {
     banner.style.display = "none";
     return;
   }
@@ -296,7 +298,7 @@ function setupCampaign(campaign) {
   currentCampaign = campaign;
   banner.style.display = "";
   applyCampaignText();
-  startCampaignTimer(end);
+  startCampaignTimer(target);
 }
 
 /* ---- Re-render dynamic (non data-i18n) content when language changes ---- */
