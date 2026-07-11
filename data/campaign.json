@@ -1,10 +1,6 @@
 {
   "enabled": true,
-  "startDate": "2026-08-01T00:00:00+04:00",
+  "startDate": "2026-07-28T22:16:00+04:00",
   "title": "Avqust Kampaniyası",
-  "title_en": "August Campaign",
-  "title_ru": "Августовская кампания",
-  "subtitle": "Endirimlər 1 avqustdan başlayır — geri sayım davam edir!",
-  "subtitle_en": "Discounts start on August 1st — the countdown is on!",
-  "subtitle_ru": "Скидки стартуют 1 августа — обратный отсчёт идёт!"
+  "subtitle": "Tələsin"
 }
