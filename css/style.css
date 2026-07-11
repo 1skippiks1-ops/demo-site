@@ -24,8 +24,6 @@
     --white: #ffffff;
     --green: #16a34a;
     --green-bg: #dcfce7;
-    --flame: #ff6a3d;
-    --flame-dark: #e8501f;
     --radius-sm: 6px;
     --radius: 12px;
     --radius-lg: 18px;
@@ -311,7 +309,7 @@ body {
 
 /* ---- Campaign Banner ---- */
 .campaign-banner {
-    background: linear-gradient(135deg, #150c0a 0%, var(--flame-dark) 130%);
+    background: linear-gradient(135deg, var(--ink) 0%, var(--purple-dark) 130%);
     border-radius: var(--radius-lg);
     padding: 3rem 3.25rem;
     color: var(--white);
@@ -321,7 +319,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
-    box-shadow: 0 8px 32px rgba(15, 8, 6, 0.4);
+    box-shadow: 0 8px 32px rgba(15, 10, 30, 0.45);
     position: relative;
     overflow: hidden;
 }
@@ -407,62 +405,7 @@ body {
     margin-bottom: 1.25rem;
 }
 .featured-grid .product-card {
-    border-color: var(--flame);
-}
-
-/* ---- Stats Bar ---- */
-.stats-bar {
-    background: var(--white);
-    border-bottom: 1px solid var(--line);
-    padding: 0;
-}
-.stats-inner {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 1.25rem 2rem;
-    flex: 1;
-    justify-content: center;
-    min-width: 140px;
-}
-.stat-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    color: var(--purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.stat-icon svg {
-    width: 100%;
-    height: 100%;
-}
-.stat-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.25;
-}
-.stat-text strong {
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--ink);
-}
-.stat-text span {
-    font-size: 13px;
-    color: var(--ink-soft);
-}
-.stat-divider {
-    width: 1px;
-    background: var(--line);
-    align-self: stretch;
-    margin: 0.5rem 0;
+    border-color: var(--purple);
 }
 
 /* ---- Catalog section ---- */
@@ -1177,13 +1120,6 @@ body {
     .campaign-timer-unit {
         min-width: 0;
         flex: 1;
-    }
-    .stat-item {
-        padding: 1rem;
-        min-width: 120px;
-    }
-    .stat-divider {
-        display: none;
     }
     .footer-inner {
         flex-direction: column;

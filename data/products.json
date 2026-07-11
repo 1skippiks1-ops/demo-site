@@ -4,14 +4,11 @@
     "name": "RAF Tozsoran (Vacuum Cleaner)",
     "category": "Evə uyğun məhsullar",
     "price": "109.99",
+    "featured": true,
     "description": "Güclü motor: 800W güclü motor ilə sürətli və effektiv soruş.  \nHEPA filtr: Toz və allergenləri tutaraq təmiz hava təmin edir.  \nBöyük təkərlər: Asan hərəkət və sabit dizayn.  \nÇoxfunksiyalı başlıqlar: \nDöşəmə, xalça, künc və çat yerlər üçün ideal.  \nUzun kabel: 5 metrlik kabel ilə geniş təmizləmə radiusu.",
     "whatsapp": "Salam! RAF Tozsoran (Vacuum Cleaner) (109.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783162515639.jpg",
-    "inStock": true,
-    "name_en": "RAF Vacuum Cleaner",
-    "name_ru": "Пылесос RAF",
-    "description_en": "Powerful motor: 800W motor for fast and effective suction.\nHEPA filter: Traps dust and allergens for clean air.\nLarge wheels: Easy movement and stable design.\nMulti-function heads: Ideal for floors, carpets, corners and tight spaces.\nLong cable: 5-meter cable for a wide cleaning radius.",
-    "description_ru": "Мощный мотор: мотор 800 Вт для быстрого и эффективного всасывания.\nHEPA-фильтр: задерживает пыль и аллергены, обеспечивая чистый воздух.\nБольшие колёса: лёгкое перемещение и устойчивая конструкция.\nМногофункциональные насадки: идеальны для пола, ковров, углов и труднодоступных мест.\nДлинный шнур: кабель длиной 5 метров для большого радиуса уборки."
+    "inStock": true
   },
   {
     "id": "1783163025907",
@@ -21,11 +18,7 @@
     "description": "Güclü mühərrik: 60W güclü motor ilə maksimum hava axını təmin edir.  3 Sürət rejimi: Aşağı, orta və yüksək sürət seçimi.  Tənzimlənən hündürlük: İstədiyiniz hündürlüyə asanlıqla uyğunlaşdırın.  Aşağı səs səviyyəsi: Səssiz işləmə ilə rahat istifadə təmin edir.  Dayaqlı və sabit: Geniş və möhkəm baza ilə maksimum sabitlik.",
     "whatsapp": "Salam! RAF Stand Fan (Döşəmə Ventilyatoru) (32.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783163025907.jpg",
-    "inStock": true,
-    "name_en": "RAF Stand Fan",
-    "name_ru": "Напольный вентилятор RAF",
-    "description_en": "Powerful motor: 60W motor delivers maximum airflow.\n3 speed modes: Low, medium and high speed settings.\nAdjustable height: Easily adjust to your preferred height.\nLow noise level: Quiet operation for comfortable use.\nSturdy and stable: Wide, solid base for maximum stability.",
-    "description_ru": "Мощный двигатель: мотор 60 Вт обеспечивает максимальный поток воздуха.\n3 скоростных режима: низкая, средняя и высокая скорость.\nРегулируемая высота: легко подстраивается под нужную высоту.\nНизкий уровень шума: тихая работа для комфортного использования.\nУстойчивая конструкция: широкое, прочное основание для максимальной устойчивости."
+    "inStock": true
   },
   {
     "id": "1783163258281",
@@ -35,11 +28,7 @@
     "description": "Soyuq, isti və normal su: 3 fərqli temperatur seçimi ilə rahat və praktik istifadə.  Təhlükəsiz isti su kilidi: Uşaqlar üçün təhlükəsiz isti su kilidi sistemi.  Yüksək keyfiyyətli filtr: Təmiz və sağlam su üçün effektiv filtrasiya sistemi.  Paslanmaz poladdan saxlama sahəsi: Davamlı və gigiyenik materialdan hazırlanıb.  Aşağı enerji istifadəsi: 500W güclü, enerjiyə qənaət edən performans.",
     "whatsapp": "Salam! RAF Su Dispanseri (169.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783163258281.jpg",
-    "inStock": true,
-    "name_en": "RAF Water Dispenser",
-    "name_ru": "Кулер для воды RAF",
-    "description_en": "Cold, hot and room-temperature water: 3 temperature options for convenient, practical use.\nSafe hot water lock: Child-safe lock system for the hot water tap.\nHigh-quality filter: Effective filtration for clean, healthy water.\nStainless steel storage area: Durable, hygienic material.\nLow energy use: 500W, energy-efficient performance.",
-    "description_ru": "Холодная, горячая и комнатная вода: 3 варианта температуры для удобного и практичного использования.\nБезопасная блокировка горячей воды: система защиты от детей.\nВысококачественный фильтр: эффективная фильтрация для чистой и полезной воды.\nОтсек из нержавеющей стали: прочный и гигиеничный материал.\nНизкое энергопотребление: мощность 500 Вт, энергоэффективная работа."
+    "inStock": true
   },
   {
     "id": "1783163317146",
@@ -49,11 +38,7 @@
     "description": "Güclü motor: 800W güclü motor ilə sürətli və effektiv sıxım.  2.5L geniş tutum: Böyük ağıllı giriş və 2.5L geniş tutum.  Paslanmaz polad: Paslanmaz polad korpus, uzunömürlü istifadə.  Təhlükəsiz istifadə: Qoruma sistemi və sürüşməz ayaqlar.  Asan təmizlik: Çıxarılan hissələr sayəsində asan təmizləmə imkanı.",
     "whatsapp": "Salam! RAF Meyvə Şirəçəkəni (Juice Extractor) (54.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783163317146.jpg",
-    "inStock": true,
-    "name_en": "RAF Juice Extractor",
-    "name_ru": "Соковыжималка RAF",
-    "description_en": "Powerful motor: 800W motor for fast and effective juicing.\n2.5L large capacity: Wide feeding chute and 2.5L capacity.\nStainless steel: Stainless steel body for long-lasting use.\nSafe to use: Safety lock system and non-slip feet.\nEasy to clean: Removable parts make cleaning simple.",
-    "description_ru": "Мощный мотор: мотор 800 Вт для быстрого и эффективного отжима сока.\nОбъём 2.5 л: широкая горловина загрузки и вместительный резервуар на 2.5 л.\nНержавеющая сталь: корпус из нержавеющей стали для долгого срока службы.\nБезопасное использование: система блокировки и нескользящие ножки.\nЛёгкая чистка: съёмные детали упрощают уход."
+    "inStock": true
   },
   {
     "id": "1783163363085",
@@ -63,11 +48,7 @@
     "description": "800W Yüksək güc: Mətbəxdə işlərinizi sürətləndirir.  4 Paslanmayan polad bıçaq: Effektiv doğrama üçün nəzərdə tutulub.  Erqonomik dizayn: Rahat istifadə imkanı yaradır.  Paslanmayan polad gövdə: Davamlı və keyfiyyətli materialdan hazırlanıb.  Asan təmizləmə: Çıxarıla bilən hissələri ilə təmizliyi çox rahatdır.",
     "whatsapp": "Salam! RAF Əl Blenderi (29.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783163363085.jpg",
-    "inStock": true,
-    "name_en": "RAF Hand Blender",
-    "name_ru": "Ручной блендер RAF",
-    "description_en": "800W high power: Speeds up your work in the kitchen.\n4 stainless steel blades: Designed for effective chopping.\nErgonomic design: Comfortable to use.\nStainless steel body: Made from durable, quality material.\nEasy to clean: Removable parts make cleaning very easy.",
-    "description_ru": "Мощность 800 Вт: ускоряет работу на кухне.\n4 ножа из нержавеющей стали: для эффективного измельчения.\nЭргономичный дизайн: удобство использования.\nКорпус из нержавеющей стали: прочный и качественный материал.\nЛёгкая чистка: съёмные детали значительно облегчают уход."
+    "inStock": true
   },
   {
     "id": "1783167117916",
@@ -75,13 +56,9 @@
     "category": "Kiçik məişət texnikası",
     "price": "199.99",
     "description": "UV Soyutma: Təmiz və sağlam hava axını.\n 3 Sürət Rejimi: Ehtiyacınıza uyğun 3 fərqli sürət.\n Uzaqdan İdarəetmə: Bütün funksiyaları pultla rahat idarə edin.\n Səssiz İşləmə: Səssiz motor texnologiyası ilə huzurlu mühit.\n 90 Watt Güc: Yüksək performanslı, aşağı enerji sərfiyyatı.\n 14 L Su Çəni: Uzun müddət fasiləsiz sərinlik təmin edir.\n 1000 m³/saat Hava Axını: Güclü hava axını ilə sürətli soyutma.\n Yuyula Bilən Filtr: Toz və hava hissəciklərini tutar, təmiz hava təmin edir.\n Etibarlı Brend: Kumtel keyfiyyəti ilə uzunömürlü istifadə.",
-    "whatsapp": "Salam! KUMTEL Hava Soyudan (Hava Təmizləyici) (199.99₼) haqqında məlumat almaq istəyirəm.",
-    "image": "images/products/1783167117916.jpg",
-    "inStock": true,
-    "name_en": "KUMTEL Air Cooler (Air Purifier)",
-    "name_ru": "Воздухоохладитель KUMTEL (очиститель воздуха)",
-    "description_en": "UV cooling: Clean and healthy airflow.\n3 speed modes: 3 different speeds to suit your needs.\nRemote control: Control all functions comfortably from the remote.\nQuiet operation: Peaceful environment thanks to quiet motor technology.\n90W power: High performance, low energy consumption.\n14L water tank: Provides continuous cooling for a long time.\n1000 m³/h airflow: Fast cooling with powerful airflow.\nWashable filter: Traps dust and air particles for clean air.\nTrusted brand: Long-lasting use with Kumtel quality.",
-    "description_ru": "УФ-охлаждение: чистый и полезный поток воздуха.\n3 скоростных режима: 3 разные скорости под ваши потребности.\nДистанционное управление: удобное управление всеми функциями с пульта.\nТихая работа: комфортная атмосфера благодаря бесшумной технологии мотора.\nМощность 90 Вт: высокая производительность при низком энергопотреблении.\nРезервуар для воды 14 л: длительное непрерывное охлаждение.\nПоток воздуха 1000 м³/ч: быстрое охлаждение мощным потоком воздуха.\nМоющийся фильтр: задерживает пыль и частицы, обеспечивая чистый воздух.\nНадёжный бренд: долгий срок службы благодаря качеству Kumtel."
+    "whatsapp": "Salam! KUMTEL Hava Soyudan (Hava Təmizləyici) (0₼) haqqında məlumat almaq istəyirəm.",
+    "image": "images/products/1783167117916.png",
+    "inStock": true
   },
   {
     "id": "1783167173446",
@@ -89,12 +66,8 @@
     "category": "Kiçik məişət texnikası",
     "price": "249.99",
     "description": "14 L Su Çəni: Uzun müddət fasiləsiz sərinlik təmin edir.\n 1000 m³/saat Hava Axını: Güclü hava axını ilə sürətli soyutma.\n 90 Watt Güc: Yüksək performanslı, aşağı enerji sərfiyyatı.\n Səssiz İstismar: Gəlişmiş motor texnologiyası ilə huzurlu mühit.\n 3 Sürət Rejimi: İstədiyiniz sərinlik üçün 3 fərqli sürət seçimi.\n Uzaqdan İdarəetmə: Bütün funksiyaları pultla rahat şəkildə idarə edin.\n Daşınması Asan: Təkərlər və yan tutacaqlar ilə istənilən yerə asanlıqla aparılan.",
-    "whatsapp": "Salam! KUMTEL Hava Soyudan (Evaporativ Kondisioner) (249.99₼) haqqında məlumat almaq istəyirəm.",
+    "whatsapp": "Salam! KUMTEL Hava Soyudan (Evaporativ Kondisioner) (0₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1783167173446.jpg",
-    "inStock": true,
-    "name_en": "KUMTEL Air Cooler (Evaporative Air Conditioner)",
-    "name_ru": "Воздухоохладитель KUMTEL (испарительный кондиционер)",
-    "description_en": "14L water tank: Provides continuous cooling for a long time.\n1000 m³/h airflow: Fast cooling with powerful airflow.\n90W power: High performance, low energy consumption.\nQuiet operation: Peaceful environment thanks to advanced motor technology.\n3 speed modes: 3 different speed options for your desired cooling.\nRemote control: Control all functions comfortably from the remote.\nEasy to move: Wheels and side handles make it easy to carry anywhere.",
-    "description_ru": "Резервуар для воды 14 л: длительное непрерывное охлаждение.\nПоток воздуха 1000 м³/ч: быстрое охлаждение мощным потоком воздуха.\nМощность 90 Вт: высокая производительность при низком энергопотреблении.\nТихая работа: комфортная атмосфера благодаря современной технологии мотора.\n3 скоростных режима: 3 разные скорости для желаемого охлаждения.\nДистанционное управление: удобное управление всеми функциями с пульта.\nЛёгкое перемещение: колёса и боковые ручки позволяют легко переносить в любое место."
+    "inStock": true
   }
 ]
