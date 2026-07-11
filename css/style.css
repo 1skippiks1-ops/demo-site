@@ -24,6 +24,8 @@
     --white: #ffffff;
     --green: #16a34a;
     --green-bg: #dcfce7;
+    --flame: #ff6a3d;
+    --flame-dark: #e8501f;
     --radius-sm: 6px;
     --radius: 12px;
     --radius-lg: 18px;
@@ -307,27 +309,23 @@ body {
     line-height: 1.65;
 }
 
-/* ---- Discount Banner ---- */
-.discount-banner {
-    background: linear-gradient(
-        135deg,
-        var(--purple) 0%,
-        var(--purple-dark) 100%
-    );
+/* ---- Campaign Banner ---- */
+.campaign-banner {
+    background: linear-gradient(135deg, var(--flame) 0%, var(--flame-dark) 100%);
     border-radius: var(--radius-lg);
     padding: 2rem 2.25rem;
     color: var(--white);
     min-width: 220px;
-    max-width: 300px;
+    max-width: 320px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    box-shadow: 0 8px 32px rgba(108, 61, 255, 0.25);
+    gap: 0.85rem;
+    box-shadow: 0 8px 32px rgba(232, 80, 31, 0.3);
     position: relative;
     overflow: hidden;
 }
-.discount-banner::before {
+.campaign-banner::before {
     content: "";
     position: absolute;
     top: -40px;
@@ -335,29 +333,51 @@ body {
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
 }
-.discount-badge {
+.campaign-badge {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 8px;
 }
-.discount-percent {
-    font-size: 2.8rem;
-    font-weight: 900;
+.campaign-eyebrow {
+    font-size: 1.4rem;
     line-height: 1;
-    letter-spacing: -0.04em;
 }
-.discount-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    opacity: 0.8;
+.campaign-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
 }
-.discount-text {
+.campaign-text {
     font-size: 14px;
     line-height: 1.5;
-    opacity: 0.9;
+    opacity: 0.92;
+}
+.campaign-timer {
+    display: flex;
+    gap: 8px;
+}
+.campaign-timer-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-sm);
+    padding: 6px 4px;
+    min-width: 48px;
+}
+.campaign-timer-num {
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+.campaign-timer-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
 }
 .discount-cta {
     display: inline-block;
@@ -373,6 +393,21 @@ body {
 }
 .discount-cta:hover {
     background: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Featured / best deals section ---- */
+.featured-section {
+    padding: 3rem 0 1rem;
+}
+.featured-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+}
+.featured-grid .product-card {
+    border-color: var(--flame);
 }
 
 /* ---- Stats Bar ---- */
@@ -765,12 +800,6 @@ body {
     text-decoration: line-through;
     margin-left: 6px;
 }
-.detail-desc {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--ink-mid);
-    margin-bottom: 2rem;
-}
 .detail-stock {
     display: inline-flex;
     align-items: center;
@@ -779,7 +808,51 @@ body {
     font-weight: 600;
     padding: 5px 14px;
     border-radius: 20px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ---- Specifications accordion (collapsed by default) ---- */
+.detail-specs {
+    margin-top: 1.5rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.detail-specs summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    transition: background 0.15s;
+}
+.detail-specs summary:hover {
+    background: var(--purple-light);
+}
+.detail-specs summary::-webkit-details-marker {
+    display: none;
+}
+.detail-specs summary::after {
+    content: "+";
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--purple);
+    transition: transform 0.15s;
+}
+.detail-specs[open] summary::after {
+    transform: rotate(45deg);
+}
+.detail-specs-body {
+    padding: 0.9rem 1.1rem 1.1rem;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-mid);
+    white-space: pre-line;
 }
 .detail-stock.in {
     background: var(--green-bg);
@@ -1107,9 +1180,13 @@ body {
         flex-direction: column;
         align-items: flex-start;
     }
-    .discount-banner {
+    .campaign-banner {
         max-width: 100%;
         width: 100%;
+    }
+    .campaign-timer-unit {
+        min-width: 0;
+        flex: 1;
     }
     .stat-item {
         padding: 1rem;

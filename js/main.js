@@ -30,6 +30,16 @@ async function loadProducts() {
   }
 }
 
+async function loadCampaign() {
+  try {
+    const res = await fetch("data/campaign.json");
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
 function getSettings() {
   try {
     const s = localStorage.getItem("shop_settings");
@@ -57,6 +67,18 @@ function discountPercent(p) {
   const oldPrice = parseFloat(p.oldPrice);
   if (!oldPrice || !price || oldPrice <= price) return 0;
   return Math.round(((oldPrice - price) / oldPrice) * 100);
+}
+
+// Manually-flagged products win; otherwise fall back to the highest
+// real discount so the section never needs hand-holding as the catalog grows.
+function getFeaturedProducts(products, limit = 8) {
+  const manual = products.filter((p) => p.featured);
+  if (manual.length) return manual;
+
+  return products
+    .filter((p) => discountPercent(p) > 0)
+    .sort((a, b) => discountPercent(b) - discountPercent(a))
+    .slice(0, limit);
 }
 
 function renderCard(p) {
@@ -197,20 +219,84 @@ function renderGrid(products, cat = "all") {
   grid.innerHTML = filtered.map(renderCard).join("");
 }
 
-/* ---- Hero discount banner: only show when a real discount exists ---- */
-function updateDiscountBanner(products) {
-  const banner = document.getElementById("discountBanner");
+/* ---- Featured / best-deals section: hidden unless there's real data ---- */
+function renderFeaturedSection(products) {
+  const section = document.getElementById("featuredSection");
+  const grid = document.getElementById("featuredGrid");
+  if (!section || !grid) return;
+
+  const featured = getFeaturedProducts(products);
+  if (!featured.length) {
+    section.style.display = "none";
+    return;
+  }
+  section.style.display = "";
+  grid.innerHTML = featured.map(renderCard).join("");
+}
+
+/* ---- Campaign banner + countdown timer ----
+   Reads data/campaign.json (a static file, same pattern as products.json,
+   so every visitor — not just the admin's own browser — sees the same
+   countdown). Hidden entirely if disabled, missing, or already ended. ---- */
+let currentCampaign = null;
+let campaignTimerHandle = null;
+
+function stopCampaignTimer() {
+  if (campaignTimerHandle) {
+    clearInterval(campaignTimerHandle);
+    campaignTimerHandle = null;
+  }
+}
+
+function startCampaignTimer(endDate) {
+  stopCampaignTimer();
+  const banner = document.getElementById("campaignBanner");
+  const pad = (n) => String(n).padStart(2, "0");
+
+  function tick() {
+    const diff = endDate.getTime() - Date.now();
+    if (diff <= 0) {
+      stopCampaignTimer();
+      if (banner) banner.style.display = "none";
+      return;
+    }
+    document.getElementById("timerDays").textContent = pad(Math.floor(diff / 86400000));
+    document.getElementById("timerHours").textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById("timerMinutes").textContent = pad(Math.floor((diff % 3600000) / 60000));
+    document.getElementById("timerSeconds").textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+
+  tick();
+  campaignTimerHandle = setInterval(tick, 1000);
+}
+
+function applyCampaignText() {
+  if (!currentCampaign) return;
+  const titleEl = document.getElementById("campaignTitle");
+  const subEl = document.getElementById("campaignSubtitle");
+  if (titleEl) titleEl.textContent = localized(currentCampaign, "title");
+  if (subEl) subEl.textContent = localized(currentCampaign, "subtitle");
+}
+
+function setupCampaign(campaign) {
+  const banner = document.getElementById("campaignBanner");
   if (!banner) return;
 
-  const best = products.reduce((max, p) => Math.max(max, discountPercent(p)), 0);
-
-  if (best <= 0) {
+  if (!campaign || !campaign.enabled || !campaign.endDate) {
     banner.style.display = "none";
     return;
   }
+
+  const end = new Date(campaign.endDate);
+  if (isNaN(end.getTime()) || end.getTime() <= Date.now()) {
+    banner.style.display = "none";
+    return;
+  }
+
+  currentCampaign = campaign;
   banner.style.display = "";
-  const pctEl = document.getElementById("discountPercent");
-  if (pctEl) pctEl.textContent = `-${best}%`;
+  applyCampaignText();
+  startCampaignTimer(end);
 }
 
 /* ---- Re-render dynamic (non data-i18n) content when language changes ---- */
@@ -223,6 +309,8 @@ window.addEventListener("shop:langchange", () => {
     activeCats,
   );
   renderGrid(currentProducts, currentCat);
+  renderFeaturedSection(currentProducts);
+  applyCampaignText();
 });
 
 /* ---- Mobile sidebar ---- */
@@ -240,20 +328,21 @@ function closeMobileSidebar() {
 
 async function init() {
   document.title = getSiteName();
-  const products = await loadProducts();
+  const [products, campaign] = await Promise.all([loadProducts(), loadCampaign()]);
   currentProducts = products;
 
   if (!products.length) {
     document.getElementById("productGrid").innerHTML =
       `<div class="empty-state"><h3>${t("load_fail_title")}</h3><p>${t("load_fail_sub")}</p></div>`;
-    const banner = document.getElementById("discountBanner");
+    const banner = document.getElementById("campaignBanner");
     if (banner) banner.style.display = "none";
     return;
   }
 
   buildSidebars(products);
   renderGrid(products);
-  updateDiscountBanner(products);
+  renderFeaturedSection(products);
+  setupCampaign(campaign);
 
   document
     .getElementById("mobileMenuBtn")

@@ -136,21 +136,35 @@
                             </p>
                         </div>
 
-                        <!-- Discount Banner (hidden unless a product actually has a discount) -->
-                        <div class="discount-banner" id="discountBanner" style="display:none">
-                            <div class="discount-badge">
-                                <span class="discount-percent" id="discountPercent">-20%</span>
-                                <span
-                                    class="discount-label"
-                                    data-i18n="discount_label"
-                                    >XÜSUSİ ENDİRİM</span
-                                >
+                        <!-- Campaign banner (hidden until data/campaign.json says it's on) -->
+                        <div class="campaign-banner" id="campaignBanner" style="display:none">
+                            <div class="campaign-badge">
+                                <span class="campaign-eyebrow">🔥</span>
+                                <span class="campaign-title" id="campaignTitle">Avqust Kampaniyası</span>
                             </div>
-                            <p class="discount-text" data-i18n="discount_text">
-                                Seçilmiş məhsullarda mövsümi endirim!
+                            <p class="campaign-text" id="campaignSubtitle">
+                                Seçilmiş məhsullarda endirimlər bitməzdən əvvəl tələsin!
                             </p>
+                            <div class="campaign-timer" id="campaignTimer">
+                                <div class="campaign-timer-unit">
+                                    <span class="campaign-timer-num" id="timerDays">00</span>
+                                    <span class="campaign-timer-label" data-i18n="timer_days">gün</span>
+                                </div>
+                                <div class="campaign-timer-unit">
+                                    <span class="campaign-timer-num" id="timerHours">00</span>
+                                    <span class="campaign-timer-label" data-i18n="timer_hours">saat</span>
+                                </div>
+                                <div class="campaign-timer-unit">
+                                    <span class="campaign-timer-num" id="timerMinutes">00</span>
+                                    <span class="campaign-timer-label" data-i18n="timer_minutes">dəq</span>
+                                </div>
+                                <div class="campaign-timer-unit">
+                                    <span class="campaign-timer-num" id="timerSeconds">00</span>
+                                    <span class="campaign-timer-label" data-i18n="timer_seconds">san</span>
+                                </div>
+                            </div>
                             <a
-                                href="#catalog"
+                                href="#featured"
                                 class="discount-cta"
                                 data-i18n="discount_cta"
                                 >İndi bax →</a
@@ -302,6 +316,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Featured / best deals (hidden if there's nothing to feature) -->
+            <section class="featured-section" id="featuredSection" style="display:none">
+                <div class="container">
+                    <h2 class="featured-title" data-i18n="featured_title">🔥 Ən sərfəli təkliflər</h2>
+                    <div class="product-grid featured-grid" id="featuredGrid"></div>
                 </div>
             </section>
 
