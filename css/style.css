@@ -65,8 +65,8 @@ body {
     color: var(--ink);
 }
 .logo-img {
-    height: 64px;
-    width: 64px;
+    height: 32px;
+    width: 32px;
 }
 .logo-text {
     font-size: 21px;
