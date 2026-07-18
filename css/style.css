@@ -65,8 +65,8 @@ body {
     color: var(--ink);
 }
 .logo-img {
-    height: 44px;
-    width: 44px;
+    height: 64px;
+    width: 64px;
 }
 .logo-text {
     font-size: 21px;
@@ -1100,8 +1100,8 @@ body {
         display: none;
     }
     .logo-img {
-        height: 38px;
-        width: 38px;
+        height: 48px;
+        width: 48px;
     }
     .header-inner {
         height: 60px;
