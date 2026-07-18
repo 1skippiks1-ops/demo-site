@@ -54,7 +54,7 @@ function updateMeta(p) {
   document.getElementById("metaDescription")?.setAttribute("content", desc);
   document
     .getElementById("metaOgTitle")
-    ?.setAttribute("content", `${name} — ElementStore`);
+    ?.setAttribute("content", `${name} — Elementstore`);
   document.getElementById("metaOgDescription")?.setAttribute("content", desc);
   document.getElementById("metaOgUrl")?.setAttribute("content", url);
   if (p.image) {
@@ -69,7 +69,7 @@ function updateMeta(p) {
 
 function renderProduct(p) {
   const name = localized(p, "name");
-  document.title = `${name} — ElementStore`;
+  document.title = `${name} — Elementstore`;
   updateMeta(p);
 
   const pct = discountPercent(p);

@@ -56,7 +56,7 @@ function getWANumber() {
 
 function getSiteName() {
   const s = getSettings();
-  return s.siteName || "ElementStore";
+  return s.siteName || "Elementstore";
 }
 
 /* ---- Discount helpers ----

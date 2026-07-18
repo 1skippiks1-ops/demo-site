@@ -1,5 +1,5 @@
 /* ============================================
-   ElementStore — i18n (AZ / EN / RU)
+   Elementstore — i18n (AZ / EN / RU)
    ============================================ */
 
 const TRANSLATIONS = {
@@ -28,8 +28,8 @@ const TRANSLATIONS = {
     contact_hours: "İş saatları: 7/24",
     contact_btn: "WhatsApp-a yaz",
     about_eyebrow: "Şirkətimiz Haqqında",
-    about_title: "ElementStore — Eviniz üçün ən yaxşı seçim",
-    about_text1: "ElementStore Azərbaycanda ev məişət texnikası, elektronika və digər ev üçün lazımlı məhsulların satışı ilə məşğul olan aparıcı ticarət platformasıdır. Biz müştərilərimizə yüksək keyfiyyətli məhsullar, rəqabətli qiymətlər və əla servis təklif edirik.",
+    about_title: "Elementstore — Eviniz üçün ən yaxşı seçim",
+    about_text1: "Elementstore Azərbaycanda ev məişət texnikası, elektronika və digər ev üçün lazımlı məhsulların satışı ilə məşğul olan aparıcı ticarət platformasıdır. Biz müştərilərimizə yüksək keyfiyyətli məhsullar, rəqabətli qiymətlər və əla servis təklif edirik.",
     about_text2: "Geniş məhsul çeşidimiz və 7/24 WhatsApp dəstəyimiz ilə hər zaman sizin yanınızdayıq.",
     about_support: "dəstək",
     about_badge1: "Etibarlı brend",
@@ -74,8 +74,8 @@ const TRANSLATIONS = {
     contact_hours: "Working hours: 7/24",
     contact_btn: "Message on WhatsApp",
     about_eyebrow: "About Us",
-    about_title: "ElementStore — The best choice for your home",
-    about_text1: "ElementStore is Azerbaijan's leading e-commerce platform specializing in home appliances, electronics, and everyday household products. We offer our customers high-quality products, competitive prices, and excellent service.",
+    about_title: "Elementstore — The best choice for your home",
+    about_text1: "Elementstore is Azerbaijan's leading e-commerce platform specializing in home appliances, electronics, and everyday household products. We offer our customers high-quality products, competitive prices, and excellent service.",
     about_text2: "With a wide range of products and 7/24 WhatsApp support, we are always by your side.",
     about_support: "support",
     about_badge1: "Trusted brand",
@@ -120,8 +120,8 @@ const TRANSLATIONS = {
     contact_hours: "Время работы: 7/24",
     contact_btn: "Написать в WhatsApp",
     about_eyebrow: "О нас",
-    about_title: "ElementStore — Лучший выбор для вашего дома",
-    about_text1: "ElementStore — ведущая торговая платформа Азербайджана, специализирующаяся на продаже бытовой техники, электроники и товаров для дома. Мы предлагаем клиентам высококачественные товары, конкурентные цены и отличный сервис.",
+    about_title: "Elementstore — Лучший выбор для вашего дома",
+    about_text1: "Elementstore — ведущая торговая платформа Азербайджана, специализирующаяся на продаже бытовой техники, электроники и товаров для дома. Мы предлагаем клиентам высококачественные товары, конкурентные цены и отличный сервис.",
     about_text2: "Широкий ассортимент товаров и круглосуточная поддержка через WhatsApp — мы всегда рядом с вами.",
     about_support: "поддержка",
     about_badge1: "Надёжный бренд",
