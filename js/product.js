@@ -72,18 +72,20 @@ function renderProduct(p) {
   document.title = `${name} — ElementStore`;
   updateMeta(p);
 
+  const pct = discountPercent(p);
+
   const imgHtml = p.image
     ? `<img src="${p.image}" alt="${name}">`
     : `<div class="detail-image-placeholder">🏠</div>`;
+  const ribbonHtml = pct > 0 ? `<span class="discount-ribbon">-${pct}%</span>` : "";
 
   const stockHtml = p.inStock
     ? `<div class="detail-stock in">✓ ${t("stock_in")}</div>`
     : `<div class="detail-stock out">✗ ${t("stock_out")}</div>`;
 
-  const pct = discountPercent(p);
   const priceHtml =
     pct > 0
-      ? `<p class="detail-price">${p.price} <span>₼</span> <span class="detail-price-old">${p.oldPrice} ₼</span> <span class="product-discount-badge">-${pct}%</span></p>`
+      ? `<p class="detail-price">${p.price} <span>₼</span> <span class="detail-price-old">${p.oldPrice} ₼</span></p>`
       : `<p class="detail-price">${p.price} <span>₼</span></p>`;
 
   const waLink = buildWALink(p);
@@ -92,7 +94,7 @@ function renderProduct(p) {
 
   return `
     <div class="detail-inner">
-      <div class="detail-image">${imgHtml}</div>
+      <div class="detail-image">${imgHtml}${ribbonHtml}</div>
       <div class="detail-info">
         <p class="detail-category">${categoryLabel(p.category)}</p>
         <h1 class="detail-name">${name}</h1>

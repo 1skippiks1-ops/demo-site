@@ -82,23 +82,25 @@ function getFeaturedProducts(products, limit = 8) {
 }
 
 function renderCard(p) {
+  const pct = discountPercent(p);
+
   const imgHtml = p.image
     ? `<img src="${p.image}" alt="${localized(p, "name")}" loading="lazy">`
     : `<div class="product-image-placeholder">🏠</div>`;
+  const ribbonHtml = pct > 0 ? `<span class="discount-ribbon">-${pct}%</span>` : "";
 
   const stockHtml = p.inStock
     ? `<span class="stock-badge in">${t("stock_in")}</span>`
     : `<span class="stock-badge out">${t("stock_out")}</span>`;
 
-  const pct = discountPercent(p);
   const priceHtml =
     pct > 0
-      ? `<p class="product-price">${p.price} <span>₼</span> <span class="product-price-old">${p.oldPrice} ₼</span> <span class="product-discount-badge">-${pct}%</span></p>`
+      ? `<p class="product-price">${p.price} <span>₼</span> <span class="product-price-old">${p.oldPrice} ₼</span></p>`
       : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
   return `
     <a href="product.html?id=${p.id}" class="product-card">
-      <div class="product-image">${imgHtml}</div>
+      <div class="product-image">${imgHtml}${ribbonHtml}</div>
       <div class="product-body">
         <p class="product-category">${categoryLabel(p.category)}</p>
         <h3 class="product-name">${localized(p, "name")}</h3>

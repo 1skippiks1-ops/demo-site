@@ -553,6 +553,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
 }
 .product-image img {
     width: 100%;
@@ -614,14 +615,20 @@ body {
     text-decoration: line-through;
     margin-left: 4px;
 }
-.product-discount-badge {
-    font-size: 11px;
-    font-weight: 700;
-    color: #dc2626;
-    background: #fee2e2;
-    padding: 2px 7px;
+/* Discount ribbon — sits on the image itself (top-right corner) instead of
+   competing for space in the card's price/stock row. */
+.discount-ribbon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 5px 11px;
     border-radius: 20px;
-    margin-left: 4px;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+    z-index: 2;
 }
 .stock-badge {
     font-size: 11px;
@@ -687,6 +694,7 @@ body {
     justify-content: center;
     overflow: hidden;
     border: 1.5px solid var(--line);
+    position: relative;
 }
 .detail-image img {
     width: 100%;
