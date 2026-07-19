@@ -229,6 +229,54 @@ body {
     opacity: 0.5;
 }
 
+/* ---- Mobile category row: category button + toggle arrow for the
+   brand sub-list (accordion, since hover flyouts don't work on touch) ---- */
+.mobile-cat-row {
+    display: flex;
+    align-items: center;
+}
+.mobile-cat-row .mobile-cat-btn {
+    flex: 1;
+}
+.mobile-cat-toggle {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 12px;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+.mobile-cat-toggle.open {
+    transform: rotate(180deg);
+}
+.mobile-cat-sublist {
+    list-style: none;
+    display: none;
+    padding: 0.25rem 0 0.5rem;
+    background: var(--bg);
+}
+.mobile-cat-sublist.open {
+    display: block;
+}
+.mobile-cat-sublist-link {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    padding: 0.5rem 1.25rem 0.5rem 2.75rem;
+    cursor: pointer;
+}
+.mobile-cat-sublist-link:hover,
+.mobile-cat-sublist-link.active {
+    color: var(--purple);
+    font-weight: 700;
+}
+
 /* ---- Language Switcher ---- */
 .lang-switcher {
     display: flex;
@@ -544,6 +592,61 @@ body {
     flex-shrink: 0;
 }
 
+/* ---- Desktop category mega-menu: hovering a category flies out its
+   brand shortcuts to the right, mirroring a classic e-commerce sidebar
+   mega-menu. Only categories that actually have brands get a flyout. ---- */
+.cat-item {
+    position: relative;
+}
+.cat-item.has-flyout:hover .cat-flyout,
+.cat-item.has-flyout:focus-within .cat-flyout {
+    display: block;
+}
+.cat-flyout {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 220px;
+    max-height: 340px;
+    overflow-y: auto;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 28px rgba(15, 10, 30, 0.12);
+    padding: 0.5rem;
+    z-index: 20;
+}
+.cat-flyout-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0.4rem 0.6rem;
+}
+.cat-flyout-list {
+    list-style: none;
+}
+.cat-flyout-link {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    padding: 0.5rem 0.6rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+.cat-flyout-link:hover,
+.cat-flyout-link.active {
+    background: var(--purple-light);
+    color: var(--purple);
+}
+
 /* ---- Mobile category trigger bar (hidden on desktop) ---- */
 .mobile-cat-trigger-bar {
     display: none;
@@ -575,6 +678,39 @@ body {
     font-size: 13px;
     font-weight: 600;
     color: var(--ink-mid);
+}
+
+/* ---- Sort + brand filter toolbar ---- */
+.catalog-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.toolbar-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-mid);
+}
+.toolbar-select {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.toolbar-select:focus {
+    border-color: var(--purple);
+    outline: none;
 }
 
 /* ---- Product grid ---- */

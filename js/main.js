@@ -84,7 +84,8 @@ function renderCard(p) {
   const imgHtml = p.image
     ? `<img src="${p.image}" alt="${localized(p, "name")}" loading="lazy">`
     : `<div class="product-image-placeholder">🏠</div>`;
-  const ribbonHtml = pct > 0 ? `<span class="discount-ribbon">-${pct}%</span>` : "";
+  const ribbonHtml =
+    pct > 0 ? `<span class="discount-ribbon">-${pct}%</span>` : "";
 
   const stockHtml = p.inStock
     ? `<span class="stock-badge in">${t("stock_in")}</span>`
@@ -119,12 +120,70 @@ function renderComingSoon() {
 
 let currentProducts = [];
 let currentCat = "all";
+let currentBrand = "all";
+let currentSort = "default";
 let currentPage = 1;
 const PAGE_SIZE = 12;
 
+/* ---- Brand helpers ----
+   Brands come from the products themselves (products.json's optional
+   "brand" field) rather than a separate file, so the filter always
+   matches whatever the admin has actually assigned. ---- */
+function getBrandsForCategory(products, cat) {
+  const scoped =
+    cat === "all" ? products : products.filter((p) => p.category === cat);
+  const brands = new Set(scoped.map((p) => p.brand).filter(Boolean));
+  return [...brands].sort((a, b) => a.localeCompare(b));
+}
+
+// Rebuilds the toolbar's brand <select> for the given category. Keeps the
+// currently selected brand if it's still valid for that category,
+// otherwise falls back to "all" instead of silently showing zero results.
+function refreshBrandOptions(cat) {
+  const select = document.getElementById("brandSelect");
+  if (!select) return;
+
+  const brands = getBrandsForCategory(currentProducts, cat);
+  select.innerHTML =
+    `<option value="all">${t("all_brands")}</option>` +
+    brands.map((b) => `<option value="${b}">${b}</option>`).join("");
+
+  if (currentBrand !== "all" && !brands.includes(currentBrand)) {
+    currentBrand = "all";
+  }
+  select.value = currentBrand;
+}
+
+function updateBrandLinkActiveStates() {
+  document
+    .querySelectorAll(".cat-flyout-link, .mobile-cat-sublist-link")
+    .forEach((el) => {
+      el.classList.toggle(
+        "active",
+        el.dataset.cat === currentCat && el.dataset.brand === currentBrand,
+      );
+    });
+}
+
+function applySort(products, sort) {
+  if (sort === "price_asc") {
+    return [...products].sort(
+      (a, b) => parseFloat(a.price) - parseFloat(b.price),
+    );
+  }
+  if (sort === "price_desc") {
+    return [...products].sort(
+      (a, b) => parseFloat(b.price) - parseFloat(a.price),
+    );
+  }
+  return products;
+}
+
 function setActiveCategory(cat) {
   currentCat = cat;
+  currentBrand = "all";
   currentPage = 1;
+  refreshBrandOptions(cat);
 
   // Desktop sidebar
   document
@@ -134,11 +193,37 @@ function setActiveCategory(cat) {
   document
     .querySelectorAll(".mobile-cat-btn")
     .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+  updateBrandLinkActiveStates();
   // Active label
   const lbl = document.getElementById("activeCatLabel");
   if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
 
   renderGrid(currentProducts, cat);
+}
+
+// Used by the category mega-menu's brand shortcuts (desktop flyout / mobile
+// accordion): jumps straight to a category pre-filtered by one brand.
+function selectCategoryFromFlyout(cat, brand) {
+  currentCat = cat;
+  currentBrand = brand;
+  currentPage = 1;
+  refreshBrandOptions(cat);
+
+  document
+    .querySelectorAll(".cat-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+  document
+    .querySelectorAll(".mobile-cat-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+  updateBrandLinkActiveStates();
+
+  const lbl = document.getElementById("activeCatLabel");
+  if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
+
+  renderGrid(currentProducts, cat);
+  document
+    .getElementById("catalog")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function buildSidebars(products) {
@@ -147,36 +232,79 @@ function buildSidebars(products) {
   const desktopList = document.getElementById("catList");
   const mobileList = document.getElementById("mobileCatList");
 
-  renderCategoryButtons(desktopList, mobileList, activeCats);
+  renderCategoryButtons(desktopList, mobileList, activeCats, products);
 
-  // Click handlers — desktop
+  // Click handlers — desktop (plain category buttons + brand flyout links)
   desktopList.addEventListener("click", (e) => {
+    const flyoutLink = e.target.closest(".cat-flyout-link");
+    if (flyoutLink) {
+      selectCategoryFromFlyout(
+        flyoutLink.dataset.cat,
+        flyoutLink.dataset.brand,
+      );
+      return;
+    }
     const btn = e.target.closest(".cat-btn");
     if (!btn) return;
     setActiveCategory(btn.dataset.cat);
   });
 
-  // Click handlers — mobile
+  // Click handlers — mobile (category buttons, brand accordion toggle, brand links)
   mobileList.addEventListener("click", (e) => {
+    const toggle = e.target.closest(".mobile-cat-toggle");
+    if (toggle) {
+      toggle.classList.toggle("open");
+      toggle
+        .closest(".mobile-cat-item")
+        ?.querySelector(".mobile-cat-sublist")
+        ?.classList.toggle("open");
+      return;
+    }
+    const subLink = e.target.closest(".mobile-cat-sublist-link");
+    if (subLink) {
+      selectCategoryFromFlyout(subLink.dataset.cat, subLink.dataset.brand);
+      closeMobileSidebar();
+      return;
+    }
     const btn = e.target.closest(".mobile-cat-btn");
     if (!btn) return;
     setActiveCategory(btn.dataset.cat);
     closeMobileSidebar();
   });
+
+  // Toolbar — sort + brand
+  document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+    currentSort = e.target.value;
+    currentPage = 1;
+    renderGrid(currentProducts, currentCat);
+  });
+  document.getElementById("brandSelect")?.addEventListener("change", (e) => {
+    currentBrand = e.target.value;
+    currentPage = 1;
+    updateBrandLinkActiveStates();
+    renderGrid(currentProducts, currentCat);
+  });
+
+  refreshBrandOptions(currentCat);
 }
 
-function renderCategoryButtons(desktopList, mobileList, activeCats) {
+function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
   const allLabel = t("all");
 
-  desktopList.innerHTML = `<li><button class="cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
-  mobileList.innerHTML = `<li><button class="mobile-cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
+  desktopList.innerHTML = `<li class="cat-item"><button class="cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
+  mobileList.innerHTML = `<li class="mobile-cat-item"><div class="mobile-cat-row"><button class="mobile-cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></div></li>`;
 
   ALL_CATEGORIES.forEach(({ key, icon }) => {
     const hasProducts = activeCats.has(key);
     const label = categoryLabel(key);
     const isActive = currentCat === key;
+    const brands = getBrandsForCategory(products, key);
+    const hasBrands = brands.length > 0;
 
+    // ---- Desktop: li.cat-item[.has-flyout] > button.cat-btn + div.cat-flyout ----
     const dLi = document.createElement("li");
+    dLi.className = "cat-item" + (hasBrands ? " has-flyout" : "");
+
     const dBtn = document.createElement("button");
     dBtn.className =
       "cat-btn" +
@@ -185,9 +313,31 @@ function renderCategoryButtons(desktopList, mobileList, activeCats) {
     dBtn.dataset.cat = key;
     dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
     dLi.appendChild(dBtn);
+
+    if (hasBrands) {
+      const flyout = document.createElement("div");
+      flyout.className = "cat-flyout";
+      flyout.innerHTML = `
+        <div class="cat-flyout-title">${label}</div>
+        <ul class="cat-flyout-list">
+          ${brands
+            .map(
+              (b) =>
+                `<li><button class="cat-flyout-link${currentCat === key && currentBrand === b ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
+            )
+            .join("")}
+        </ul>`;
+      dLi.appendChild(flyout);
+    }
     desktopList.appendChild(dLi);
 
+    // ---- Mobile: li.mobile-cat-item > div.mobile-cat-row(button[+toggle]) + ul.mobile-cat-sublist ----
     const mLi = document.createElement("li");
+    mLi.className = "mobile-cat-item";
+
+    const row = document.createElement("div");
+    row.className = "mobile-cat-row";
+
     const mBtn = document.createElement("button");
     mBtn.className =
       "mobile-cat-btn" +
@@ -195,7 +345,28 @@ function renderCategoryButtons(desktopList, mobileList, activeCats) {
       (isActive ? " active" : "");
     mBtn.dataset.cat = key;
     mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
-    mLi.appendChild(mBtn);
+    row.appendChild(mBtn);
+
+    if (hasBrands) {
+      const toggleBtn = document.createElement("button");
+      toggleBtn.className = "mobile-cat-toggle";
+      toggleBtn.setAttribute("aria-label", "Markalar");
+      toggleBtn.innerHTML = "▾";
+      row.appendChild(toggleBtn);
+    }
+    mLi.appendChild(row);
+
+    if (hasBrands) {
+      const sublist = document.createElement("ul");
+      sublist.className = "mobile-cat-sublist";
+      sublist.innerHTML = brands
+        .map(
+          (b) =>
+            `<li><button class="mobile-cat-sublist-link${currentCat === key && currentBrand === b ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
+        )
+        .join("");
+      mLi.appendChild(sublist);
+    }
     mobileList.appendChild(mLi);
   });
 }
@@ -204,16 +375,22 @@ function renderGrid(products, cat = "all") {
   const grid = document.getElementById("productGrid");
   const pagination = document.getElementById("pagination");
 
-  const filtered = cat === "all" ? products : products.filter((p) => p.category === cat);
+  let filtered =
+    cat === "all" ? products : products.filter((p) => p.category === cat);
+  if (currentBrand !== "all") {
+    filtered = filtered.filter((p) => p.brand === currentBrand);
+  }
 
   if (!filtered.length) {
     grid.innerHTML =
-      cat === "all"
+      cat === "all" && currentBrand === "all"
         ? `<div class="empty-state"><h3>${t("empty_title")}</h3><p>${t("empty_sub")}</p></div>`
         : renderComingSoon();
     if (pagination) pagination.innerHTML = "";
     return;
   }
+
+  filtered = applySort(filtered, currentSort);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   if (currentPage > totalPages) currentPage = totalPages;
@@ -229,7 +406,9 @@ function renderGrid(products, cat = "all") {
 function goToPage(page) {
   currentPage = page;
   renderGrid(currentProducts, currentCat);
-  document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document
+    .getElementById("catalog")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderPagination(totalPages) {
@@ -354,10 +533,18 @@ function startCampaignTimer(targetDate) {
       if (banner) banner.style.display = "none";
       return;
     }
-    document.getElementById("timerDays").textContent = pad(Math.floor(diff / 86400000));
-    document.getElementById("timerHours").textContent = pad(Math.floor((diff % 86400000) / 3600000));
-    document.getElementById("timerMinutes").textContent = pad(Math.floor((diff % 3600000) / 60000));
-    document.getElementById("timerSeconds").textContent = pad(Math.floor((diff % 60000) / 1000));
+    document.getElementById("timerDays").textContent = pad(
+      Math.floor(diff / 86400000),
+    );
+    document.getElementById("timerHours").textContent = pad(
+      Math.floor((diff % 86400000) / 3600000),
+    );
+    document.getElementById("timerMinutes").textContent = pad(
+      Math.floor((diff % 3600000) / 60000),
+    );
+    document.getElementById("timerSeconds").textContent = pad(
+      Math.floor((diff % 60000) / 1000),
+    );
   }
 
   tick();
@@ -403,7 +590,9 @@ window.addEventListener("shop:langchange", () => {
     document.getElementById("catList"),
     document.getElementById("mobileCatList"),
     activeCats,
+    currentProducts,
   );
+  refreshBrandOptions(currentCat);
   renderGrid(currentProducts, currentCat);
   renderFeaturedSection(currentProducts);
   applyCampaignText();
@@ -424,7 +613,10 @@ function closeMobileSidebar() {
 
 async function init() {
   document.title = getSiteName();
-  const [products, campaign] = await Promise.all([loadProducts(), loadCampaign()]);
+  const [products, campaign] = await Promise.all([
+    loadProducts(),
+    loadCampaign(),
+  ]);
   currentProducts = products;
 
   if (!products.length) {

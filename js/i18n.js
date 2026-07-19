@@ -9,7 +9,8 @@ const TRANSLATIONS = {
     hero_eyebrow: "Keyfiyyətli məişət əşyaları",
     hero_title1: "Eviniz üçün",
     hero_title2: "ən yaxşısı",
-    hero_sub: "Seçin, məlumat alın, sifariş edin — WhatsApp üzərindən birbaşa və sürətlə.",
+    hero_sub:
+      "Seçin, məlumat alın, sifariş edin — WhatsApp üzərindən birbaşa və sürətlə.",
     discount_cta: "İndi bax →",
     timer_days: "gün",
     timer_hours: "saat",
@@ -29,8 +30,10 @@ const TRANSLATIONS = {
     contact_btn: "WhatsApp-a yaz",
     about_eyebrow: "Şirkətimiz Haqqında",
     about_title: "Elementstore — Eviniz üçün ən yaxşı seçim",
-    about_text1: "Elementstore Azərbaycanda ev məişət texnikası, elektronika və digər ev üçün lazımlı məhsulların satışı ilə məşğul olan aparıcı ticarət platformasıdır. Biz müştərilərimizə yüksək keyfiyyətli məhsullar, rəqabətli qiymətlər və əla servis təklif edirik.",
-    about_text2: "Geniş məhsul çeşidimiz və 7/24 WhatsApp dəstəyimiz ilə hər zaman sizin yanınızdayıq.",
+    about_text1:
+      "Elementstore Azərbaycanda ev məişət texnikası, elektronika və digər ev üçün lazımlı məhsulların satışı ilə məşğul olan aparıcı ticarət platformasıdır. Biz müştərilərimizə yüksək keyfiyyətli məhsullar, rəqabətli qiymətlər və əla servis təklif edirik.",
+    about_text2:
+      "Geniş məhsul çeşidimiz və 7/24 WhatsApp dəstəyimiz ilə hər zaman sizin yanınızdayıq.",
     about_support: "dəstək",
     about_badge1: "Etibarlı brend",
     about_badge2: "Rəsmi zəmanət",
@@ -48,6 +51,12 @@ const TRANSLATIONS = {
     product_not_found: "Məhsul tapılmadı.",
     error_generic: "Xəta baş verdi.",
     specifications: "Xüsusiyyətlər",
+    sort_label: "Sırala:",
+    sort_default: "Defolt",
+    sort_price_asc: "Qiymət: azdan çoxa",
+    sort_price_desc: "Qiymət: çoxdan aza",
+    brand_label: "Marka:",
+    all_brands: "Bütün markalar",
   },
   en: {
     nav_catalog: "Catalog",
@@ -55,7 +64,8 @@ const TRANSLATIONS = {
     hero_eyebrow: "Quality home appliances",
     hero_title1: "The best",
     hero_title2: "for your home",
-    hero_sub: "Browse, get info, and order — directly via WhatsApp, fast and easy.",
+    hero_sub:
+      "Browse, get info, and order — directly via WhatsApp, fast and easy.",
     discount_cta: "Shop now →",
     timer_days: "days",
     timer_hours: "hrs",
@@ -75,8 +85,10 @@ const TRANSLATIONS = {
     contact_btn: "Message on WhatsApp",
     about_eyebrow: "About Us",
     about_title: "Elementstore — The best choice for your home",
-    about_text1: "Elementstore is Azerbaijan's leading e-commerce platform specializing in home appliances, electronics, and everyday household products. We offer our customers high-quality products, competitive prices, and excellent service.",
-    about_text2: "With a wide range of products and 7/24 WhatsApp support, we are always by your side.",
+    about_text1:
+      "Elementstore is Azerbaijan's leading e-commerce platform specializing in home appliances, electronics, and everyday household products. We offer our customers high-quality products, competitive prices, and excellent service.",
+    about_text2:
+      "With a wide range of products and 7/24 WhatsApp support, we are always by your side.",
     about_support: "support",
     about_badge1: "Trusted brand",
     about_badge2: "Official warranty",
@@ -94,6 +106,12 @@ const TRANSLATIONS = {
     product_not_found: "Product not found.",
     error_generic: "Something went wrong.",
     specifications: "Specifications",
+    sort_label: "Sort by:",
+    sort_default: "Default",
+    sort_price_asc: "Price: low to high",
+    sort_price_desc: "Price: high to low",
+    brand_label: "Brand:",
+    all_brands: "All brands",
   },
   ru: {
     nav_catalog: "Каталог",
@@ -101,7 +119,8 @@ const TRANSLATIONS = {
     hero_eyebrow: "Качественная бытовая техника",
     hero_title1: "Лучшее",
     hero_title2: "для вашего дома",
-    hero_sub: "Выбирайте, узнавайте, заказывайте — напрямую через WhatsApp, быстро и удобно.",
+    hero_sub:
+      "Выбирайте, узнавайте, заказывайте — напрямую через WhatsApp, быстро и удобно.",
     discount_cta: "Смотреть →",
     timer_days: "дн",
     timer_hours: "ч",
@@ -121,8 +140,10 @@ const TRANSLATIONS = {
     contact_btn: "Написать в WhatsApp",
     about_eyebrow: "О нас",
     about_title: "Elementstore — Лучший выбор для вашего дома",
-    about_text1: "Elementstore — ведущая торговая платформа Азербайджана, специализирующаяся на продаже бытовой техники, электроники и товаров для дома. Мы предлагаем клиентам высококачественные товары, конкурентные цены и отличный сервис.",
-    about_text2: "Широкий ассортимент товаров и круглосуточная поддержка через WhatsApp — мы всегда рядом с вами.",
+    about_text1:
+      "Elementstore — ведущая торговая платформа Азербайджана, специализирующаяся на продаже бытовой техники, электроники и товаров для дома. Мы предлагаем клиентам высококачественные товары, конкурентные цены и отличный сервис.",
+    about_text2:
+      "Широкий ассортимент товаров и круглосуточная поддержка через WhatsApp — мы всегда рядом с вами.",
     about_support: "поддержка",
     about_badge1: "Надёжный бренд",
     about_badge2: "Официальная гарантия",
@@ -140,6 +161,12 @@ const TRANSLATIONS = {
     product_not_found: "Товар не найден.",
     error_generic: "Произошла ошибка.",
     specifications: "Характеристики",
+    sort_label: "Сортировать:",
+    sort_default: "По умолчанию",
+    sort_price_asc: "Цена: по возрастанию",
+    sort_price_desc: "Цена: по убыванию",
+    brand_label: "Бренд:",
+    all_brands: "Все бренды",
   },
 };
 
@@ -151,13 +178,14 @@ const CATEGORY_LABELS = {
     "Kiçik məişət texnikası": "Kiçik məişət texnikası",
     "TV və Audio": "TV və Audio",
     "Foto texnika": "Foto texnika",
-    "Notbuk, planşet və kompüter texnikası": "Notbuk, planşet və kompüter texnikası",
+    "Notbuk, planşet və kompüter texnikası":
+      "Notbuk, planşet və kompüter texnikası",
     "Evə uyğun məhsullar": "Evə uyğun məhsullar",
     "Mebellər və tekstil": "Mebellər və tekstil",
     "Nəqliyyat və Əyləncə": "Nəqliyyat və Əyləncə",
     "İdman və sağlamlıq": "İdman və sağlamlıq",
     "Avtomobil üçün məhsullar": "Avtomobil üçün məhsullar",
-    "İnşaat": "İnşaat",
+    İnşaat: "İnşaat",
     "Dəftərxana ləvazimatları": "Dəftərxana ləvazimatları",
   },
   en: {
@@ -172,7 +200,7 @@ const CATEGORY_LABELS = {
     "Nəqliyyat və Əyləncə": "Transport & leisure",
     "İdman və sağlamlıq": "Sports & health",
     "Avtomobil üçün məhsullar": "Car products",
-    "İnşaat": "Construction",
+    İnşaat: "Construction",
     "Dəftərxana ləvazimatları": "Office supplies",
   },
   ru: {
@@ -187,7 +215,7 @@ const CATEGORY_LABELS = {
     "Nəqliyyat və Əyləncə": "Транспорт и отдых",
     "İdman və sağlamlıq": "Спорт и здоровье",
     "Avtomobil üçün məhsullar": "Товары для авто",
-    "İnşaat": "Стройматериалы",
+    İnşaat: "Стройматериалы",
     "Dəftərxana ləvazimatları": "Канцтовары",
   },
 };
@@ -238,7 +266,9 @@ function applyLang(lang) {
   });
 
   // Let other scripts (e.g. main.js catalog rendering) react to the change
-  window.dispatchEvent(new CustomEvent("shop:langchange", { detail: { lang } }));
+  window.dispatchEvent(
+    new CustomEvent("shop:langchange", { detail: { lang } }),
+  );
 }
 
 function initI18n() {
