@@ -69,16 +69,13 @@ function discountPercent(p) {
   return Math.round(((oldPrice - price) / oldPrice) * 100);
 }
 
-// Manually-flagged products win; otherwise fall back to the highest
-// real discount so the section never needs hand-holding as the catalog grows.
-function getFeaturedProducts(products, limit = 8) {
-  const manual = products.filter((p) => p.featured);
-  if (manual.length) return manual;
-
+// Only shows products explicitly marked "Ön plana çıxar" in the admin —
+// leaving it unchecked means the product stays out of this section.
+// Among those, highest discount % leads.
+function getFeaturedProducts(products) {
   return products
-    .filter((p) => discountPercent(p) > 0)
-    .sort((a, b) => discountPercent(b) - discountPercent(a))
-    .slice(0, limit);
+    .filter((p) => p.featured)
+    .sort((a, b) => discountPercent(b) - discountPercent(a));
 }
 
 function renderCard(p) {
@@ -122,9 +119,12 @@ function renderComingSoon() {
 
 let currentProducts = [];
 let currentCat = "all";
+let currentPage = 1;
+const PAGE_SIZE = 12;
 
 function setActiveCategory(cat) {
   currentCat = cat;
+  currentPage = 1;
 
   // Desktop sidebar
   document
@@ -202,23 +202,77 @@ function renderCategoryButtons(desktopList, mobileList, activeCats) {
 
 function renderGrid(products, cat = "all") {
   const grid = document.getElementById("productGrid");
+  const pagination = document.getElementById("pagination");
 
-  if (cat === "all") {
-    if (!products.length) {
-      grid.innerHTML = `<div class="empty-state"><h3>${t("empty_title")}</h3><p>${t("empty_sub")}</p></div>`;
-      return;
-    }
-    grid.innerHTML = products.map(renderCard).join("");
-    return;
-  }
+  const filtered = cat === "all" ? products : products.filter((p) => p.category === cat);
 
-  const filtered = products.filter((p) => p.category === cat);
   if (!filtered.length) {
-    grid.innerHTML = renderComingSoon();
+    grid.innerHTML =
+      cat === "all"
+        ? `<div class="empty-state"><h3>${t("empty_title")}</h3><p>${t("empty_sub")}</p></div>`
+        : renderComingSoon();
+    if (pagination) pagination.innerHTML = "";
     return;
   }
-  grid.innerHTML = filtered.map(renderCard).join("");
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+  grid.innerHTML = pageItems.map(renderCard).join("");
+  renderPagination(totalPages);
 }
+
+function goToPage(page) {
+  currentPage = page;
+  renderGrid(currentProducts, currentCat);
+  document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderPagination(totalPages) {
+  const pagination = document.getElementById("pagination");
+  if (!pagination) return;
+
+  if (totalPages <= 1) {
+    pagination.innerHTML = "";
+    return;
+  }
+
+  // Build the page-number list: always show first/last, current ± 1,
+  // and collapse the rest behind "…" once there are too many to fit.
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+      pages.push(i);
+    } else if (pages[pages.length - 1] !== "…") {
+      pages.push("…");
+    }
+  }
+
+  const pageButtons = pages
+    .map((p) =>
+      p === "…"
+        ? `<span class="page-ellipsis">…</span>`
+        : `<button class="page-btn${p === currentPage ? " active" : ""}" data-page="${p}">${p}</button>`,
+    )
+    .join("");
+
+  pagination.innerHTML = `
+    <button class="page-arrow" data-page="${currentPage - 1}" ${currentPage <= 1 ? "disabled" : ""} aria-label="Geri">‹</button>
+    ${pageButtons}
+    <button class="page-arrow" data-page="${currentPage + 1}" ${currentPage >= totalPages ? "disabled" : ""} aria-label="İrəli">›</button>
+  `;
+}
+
+document.getElementById("pagination")?.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-page]");
+  if (!btn || btn.disabled) return;
+  const page = parseInt(btn.dataset.page, 10);
+  if (!isNaN(page)) goToPage(page);
+});
 
 /* ---- Featured / best-deals section: hidden unless there's real data ---- */
 function renderFeaturedSection(products) {
@@ -233,6 +287,44 @@ function renderFeaturedSection(products) {
   }
   section.style.display = "";
   grid.innerHTML = featured.map(renderCard).join("");
+  requestAnimationFrame(updateFeaturedArrows);
+}
+
+/* ---- Featured carousel arrows: only shown when the row actually overflows ---- */
+function updateFeaturedArrows() {
+  const grid = document.getElementById("featuredGrid");
+  const prevBtn = document.getElementById("featuredPrev");
+  const nextBtn = document.getElementById("featuredNext");
+  if (!grid || !prevBtn || !nextBtn) return;
+
+  const hasOverflow = grid.scrollWidth > grid.clientWidth + 4;
+  prevBtn.classList.toggle("hidden", !hasOverflow);
+  nextBtn.classList.toggle("hidden", !hasOverflow);
+  if (!hasOverflow) return;
+
+  prevBtn.disabled = grid.scrollLeft <= 4;
+  nextBtn.disabled = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 4;
+}
+
+function scrollFeatured(direction) {
+  const grid = document.getElementById("featuredGrid");
+  if (!grid) return;
+  const card = grid.querySelector(".product-card");
+  const gap = 24; // matches .featured-grid gap
+  const amount = card ? card.getBoundingClientRect().width + gap : 300;
+  grid.scrollBy({ left: direction * amount, behavior: "smooth" });
+}
+
+function initFeaturedCarousel() {
+  const grid = document.getElementById("featuredGrid");
+  const prevBtn = document.getElementById("featuredPrev");
+  const nextBtn = document.getElementById("featuredNext");
+  if (!grid || !prevBtn || !nextBtn) return;
+
+  prevBtn.addEventListener("click", () => scrollFeatured(-1));
+  nextBtn.addEventListener("click", () => scrollFeatured(1));
+  grid.addEventListener("scroll", updateFeaturedArrows);
+  window.addEventListener("resize", updateFeaturedArrows);
 }
 
 /* ---- Campaign banner + countdown timer ----
@@ -345,6 +437,7 @@ async function init() {
 
   buildSidebars(products);
   renderGrid(products);
+  initFeaturedCarousel();
   renderFeaturedSection(products);
   setupCampaign(campaign);
 

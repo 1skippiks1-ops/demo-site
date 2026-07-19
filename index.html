@@ -140,7 +140,6 @@
                         <!-- Campaign banner (hidden until data/campaign.json says it's on) -->
                         <div class="campaign-banner" id="campaignBanner" style="display:none">
                             <div class="campaign-badge">
-                                <span class="campaign-eyebrow">🔥</span>
                                 <span class="campaign-title" id="campaignTitle">Avqust Kampaniyası</span>
                             </div>
                             <p class="campaign-text" id="campaignSubtitle">
@@ -178,8 +177,12 @@
             <!-- Featured / best deals (hidden if there's nothing to feature) -->
             <section class="featured-section" id="featuredSection" style="display:none">
                 <div class="container">
-                    <h2 class="featured-title" data-i18n="featured_title">🔥 Ən sərfəli təkliflər</h2>
-                    <div class="product-grid featured-grid" id="featuredGrid"></div>
+                    <h2 class="featured-title" data-i18n="featured_title">Ən sərfəli təkliflər</h2>
+                    <div class="featured-carousel-wrap">
+                        <button class="featured-arrow featured-arrow-left hidden" id="featuredPrev" aria-label="Geri">‹</button>
+                        <div class="featured-grid" id="featuredGrid"></div>
+                        <button class="featured-arrow featured-arrow-right hidden" id="featuredNext" aria-label="İrəli">›</button>
+                    </div>
                 </div>
             </section>
 
@@ -258,6 +261,7 @@
                                     Məhsullar yüklənir...
                                 </div>
                             </div>
+                            <div class="pagination" id="pagination"></div>
                         </div>
                     </div>
                 </div>
