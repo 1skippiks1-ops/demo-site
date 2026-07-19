@@ -95,7 +95,7 @@ function renderCard(p) {
 
   const priceHtml =
     pct > 0
-      ? `<p class="product-price">${p.price} <span>₼</span> <span class="product-price-old">${p.oldPrice} ₼</span></p>`
+      ? `<div><p class="product-price-old">${p.oldPrice} ₼</p><p class="product-price">${p.price} <span>₼</span></p></div>`
       : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
   return `

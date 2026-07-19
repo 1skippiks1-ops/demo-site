@@ -609,11 +609,12 @@ body {
     color: var(--ink-soft);
 }
 .product-price-old {
-    font-size: 0.85rem;
+    display: block;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--ink-soft);
     text-decoration: line-through;
-    margin-left: 4px;
+    margin-bottom: 1px;
 }
 /* Discount ribbon — sits on the image itself (top-right corner) instead of
    competing for space in the card's price/stock row. */
@@ -621,13 +622,13 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #dc2626;
+    background: var(--purple);
     color: #fff;
     font-size: 13px;
     font-weight: 800;
     padding: 5px 11px;
     border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+    box-shadow: 0 2px 8px rgba(108, 61, 255, 0.4);
     z-index: 2;
 }
 .stock-badge {
@@ -735,11 +736,12 @@ body {
     color: var(--ink-soft);
 }
 .detail-price-old {
+    display: block;
     font-size: 1.15rem;
     font-weight: 500;
     color: var(--ink-soft);
     text-decoration: line-through;
-    margin-left: 6px;
+    margin-bottom: 2px;
 }
 .detail-stock {
     display: inline-flex;

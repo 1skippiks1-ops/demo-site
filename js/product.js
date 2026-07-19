@@ -85,7 +85,7 @@ function renderProduct(p) {
 
   const priceHtml =
     pct > 0
-      ? `<p class="detail-price">${p.price} <span>₼</span> <span class="detail-price-old">${p.oldPrice} ₼</span></p>`
+      ? `<p class="detail-price-old">${p.oldPrice} ₼</p><p class="detail-price">${p.price} <span>₼</span></p>`
       : `<p class="detail-price">${p.price} <span>₼</span></p>`;
 
   const waLink = buildWALink(p);
