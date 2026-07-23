@@ -206,11 +206,20 @@ function refreshSubcatOptions(cat) {
 // Rebuilds the toolbar's brand <select> for the given category+subcategory.
 // Keeps the currently selected brand if it's still valid for that scope,
 // otherwise falls back to "all" instead of silently showing zero results.
+// A single-brand catalog gets nothing to actually filter, so the whole
+// group hides — a dropdown with one meaningless option looks unfinished.
 function refreshBrandOptions(cat) {
   const select = document.getElementById("brandSelect");
-  if (!select) return;
+  const group = document.getElementById("brandToolbarGroup");
+  if (!select || !group) return;
 
   const brands = getBrandsForScope(currentProducts, cat, currentSubcat);
+  if (brands.length < 2) {
+    group.style.display = "none";
+    currentBrand = "all";
+    return;
+  }
+  group.style.display = "";
   select.innerHTML =
     `<option value="all">${t("all_brands")}</option>` +
     brands.map((b) => `<option value="${b}">${b}</option>`).join("");
@@ -394,7 +403,9 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
     const isActive = currentCat === key;
     const subcatGroups = getSubcategoryGroups(products, key);
     const directBrands = getDirectBrandsForCategory(products, key);
-    const hasFlyout = subcatGroups.length > 0 || directBrands.length > 0;
+    // A single-brand catalog has nothing to actually choose between, so
+    // brand links only earn their place once there's a real choice (2+).
+    const hasFlyout = subcatGroups.length > 0 || directBrands.length > 1;
 
     const isLinkActive = (subcat, brand) =>
       currentCat === key &&
@@ -402,15 +413,16 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
       currentBrand === (brand || "all");
 
     // Shared inner markup for both the desktop flyout and the mobile
-    // accordion: subcategory groups (bold heading + nested brand links),
-    // then any brands whose products have no subcategory at all.
+    // accordion: subcategory groups (bold heading + nested brand links,
+    // only when 2+ brands make the nesting worthwhile), then any brands
+    // whose products have no subcategory at all (same 2+ rule).
     const groupsHtml = subcatGroups
       .map(
         ({ subcat, brands }) => `
         <li class="cat-flyout-group">
           <button class="cat-flyout-link cat-flyout-link--subcat${isLinkActive(subcat) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}">${subcat}</button>
           ${
-            brands.length
+            brands.length > 1
               ? `<ul class="cat-flyout-brands">${brands
                   .map(
                     (b) =>
@@ -422,12 +434,15 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
         </li>`,
       )
       .join("");
-    const directBrandsHtml = directBrands
-      .map(
-        (b) =>
-          `<li><button class="cat-flyout-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
-      )
-      .join("");
+    const directBrandsHtml =
+      directBrands.length > 1
+        ? directBrands
+            .map(
+              (b) =>
+                `<li><button class="cat-flyout-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
+            )
+            .join("")
+        : "";
 
     // ---- Desktop: li.cat-item[.has-flyout] > button.cat-btn + div.cat-flyout ----
     const dLi = document.createElement("li");
@@ -480,21 +495,27 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
             ({ subcat, brands }) => `
           <li class="mobile-cat-subgroup">
             <button class="mobile-cat-sublist-link mobile-cat-sublist-link--subcat${isLinkActive(subcat) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}">${subcat}</button>
-            ${brands
-              .map(
-                (b) =>
-                  `<button class="mobile-cat-sublist-link mobile-cat-sublist-link--brand${isLinkActive(subcat, b) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}" data-brand="${b}">${b}</button>`,
-              )
-              .join("")}
+            ${
+              brands.length > 1
+                ? brands
+                    .map(
+                      (b) =>
+                        `<button class="mobile-cat-sublist-link mobile-cat-sublist-link--brand${isLinkActive(subcat, b) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}" data-brand="${b}">${b}</button>`,
+                    )
+                    .join("")
+                : ""
+            }
           </li>`,
           )
           .join("") +
-        directBrands
-          .map(
-            (b) =>
-              `<li><button class="mobile-cat-sublist-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
-          )
-          .join("");
+        (directBrands.length > 1
+          ? directBrands
+              .map(
+                (b) =>
+                  `<li><button class="mobile-cat-sublist-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
+              )
+              .join("")
+          : "");
       mLi.appendChild(sublist);
     }
     mobileList.appendChild(mLi);
