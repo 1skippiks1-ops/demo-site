@@ -541,6 +541,10 @@ body {
     padding: 1.25rem 0;
     position: sticky;
     top: 80px;
+    /* position:sticky creates its own stacking context, which otherwise
+       traps .cat-flyout's z-index locally — without this, the product
+       grid (painted later in DOM order) shows on top of the flyout. */
+    z-index: 15;
     min-width: 300px;
 }
 .cat-sidebar-title {
