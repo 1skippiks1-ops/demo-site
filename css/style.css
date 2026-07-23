@@ -222,13 +222,6 @@ body {
     color: var(--purple);
     font-weight: 700;
 }
-.mobile-cat-btn--empty {
-    color: var(--ink-soft);
-}
-.mobile-cat-btn--empty .cat-icon {
-    opacity: 0.5;
-}
-
 /* ---- Mobile category row: category button + toggle arrow for the
    brand sub-list (accordion, since hover flyouts don't work on touch) ---- */
 .mobile-cat-row {
@@ -275,6 +268,17 @@ body {
 .mobile-cat-sublist-link.active {
     color: var(--purple);
     font-weight: 700;
+}
+.mobile-cat-subgroup {
+    padding-top: 0.15rem;
+}
+.mobile-cat-sublist-link--subcat {
+    font-weight: 700;
+    color: var(--ink);
+}
+.mobile-cat-sublist-link--brand {
+    font-size: 12px;
+    padding-left: 3.75rem;
 }
 
 /* ---- Language Switcher ---- */
@@ -581,12 +585,6 @@ body {
     color: var(--purple);
     font-weight: 700;
 }
-.cat-btn--empty {
-    color: var(--ink-soft);
-}
-.cat-btn--empty .cat-icon {
-    opacity: 0.45;
-}
 .cat-icon {
     font-size: 17px;
     flex-shrink: 0;
@@ -645,6 +643,24 @@ body {
 .cat-flyout-link.active {
     background: var(--purple-light);
     color: var(--purple);
+}
+.cat-flyout-group {
+    margin-bottom: 0.2rem;
+}
+.cat-flyout-link--subcat {
+    font-weight: 700;
+    color: var(--ink);
+}
+.cat-flyout-brands {
+    list-style: none;
+    padding-left: 0.75rem;
+    border-left: 1.5px solid var(--line);
+    margin: 0.1rem 0 0.4rem 0.9rem;
+}
+.cat-flyout-brands .cat-flyout-link {
+    font-size: 13px;
+    font-weight: 400;
+    padding: 0.35rem 0.6rem;
 }
 
 /* ---- Mobile category trigger bar (hidden on desktop) ---- */

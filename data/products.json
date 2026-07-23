@@ -8,7 +8,8 @@
     "description": "Güc: 90W\nGərginlik: 220–240V ~ 50Hz\nSu çəninin həcmi: 14 litr\nHava axını: 1000 m³/saat\nSürət səviyyələri: 3 fərqli rejim\nSalınım: 60° avtomatik sağ-sol salınım\nFunksiyalar: Soyutma, nəmləndirmə, taymer, rejim və işıq\nİdarəetmə: Uzaqdan idarəetmə pultu\nBuz kaseti: 4 ədəd\nMəhsul ölçüləri: 326 × 326 × 648 mm\nXalis çəki: 6 kq\nBrüt çəki: 7,4 kq",
     "whatsapp": "Salam! Kumtel hava soyuducusu (185₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784451145889.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF"
   },
   {
     "id": "1784467200101",
@@ -20,7 +21,8 @@
     "description": "Tez qaynatma\nAşağı səs-küy\nİsti və soyuq su ikili istifadə",
     "whatsapp": "Salam! RAF Su Dispenseri (199.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467200101.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF"
   },
   {
     "id": "1784467368539",
@@ -32,7 +34,9 @@
     "description": "600W güclü motor\nHEPA filtr\nYüksək tutum\n5m uzun kabel",
     "whatsapp": "Salam! RAF Vacuum Cleaner (Tozsoran) (49.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467368539.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Tozsoran"
   },
   {
     "id": "1784467429589",
@@ -43,7 +47,9 @@
     "description": "600W güclü motor\nHEPA filtr\nYüksək tutum\n5m uzun kabel",
     "whatsapp": "Salam! RAF Vacuum Cleaner (Tozsoran) (R.8763) (49.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467429589.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Tozsoran"
   },
   {
     "id": "1784467529791",
@@ -54,7 +60,9 @@
     "description": "Güclü motor\nHEPA filtr\nBöyük təkərlər\n15L tutum\n5m kabel",
     "whatsapp": "Salam! RAF Vacuum Cleaner (Tozsoran)  (R.8726) (111.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467529791.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Tozsoran"
   },
   {
     "id": "1784467572065",
@@ -65,7 +73,9 @@
     "description": "800W güclü motor\nHEPA filtr\nBöyük təkərlər\n5m kabel",
     "whatsapp": "Salam! RAF Vacuum Cleaner (Tozsoran)  (R.8726-2) (87.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467572065.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Tozsoran"
   },
   {
     "id": "1784467614906",
@@ -76,7 +86,9 @@
     "description": "800W güclü motor\nHEPA filtr\n4.5L/2.5L tutum\n5m kabel",
     "whatsapp": "Salam! RAF Vacuum Cleaner (Tozsoran)  (R.8670) (116.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784467614906.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Tozsoran"
   },
   {
     "id": "1784468583478",
@@ -87,7 +99,9 @@
     "description": "3 temperatur seçimi\nYüksək keyfiyyətli filtr\nPaslanmaz polad\n500W",
     "whatsapp": "Salam! RAF Food Processor (Qida prosessoru) (41.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784468583478.jpg",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784468640998",
@@ -99,7 +113,9 @@
     "description": "3 temperatur seçimi\nTəhlükəsiz istilik qilidi\nAşağı enerji",
     "whatsapp": "Salam! RAF Food Chopper (Qida doğrayıcı)  (R.332) (19.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784468640998.jpg",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784468846548",
@@ -111,7 +127,9 @@
     "description": "1.2L həcm\nSu səviyyəsi göstəricisi\nİsti saxlama funksiyası",
     "whatsapp": "Salam! RAF Coffee Maker (Qəhvə bişirən)  (R.132) (41.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784468846548.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784468907821",
@@ -123,7 +141,9 @@
     "description": "700W güc\nAşağı səs səviyyəsi\nAsan təmizlənir\nPaslanmaz polad filtr",
     "whatsapp": "Salam! RAF Şirəçəkən  (R.2819B) (59.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784468907821.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784469126820",
@@ -134,7 +154,9 @@
     "description": "3in1 çoxfunksiyalı\n2 sürət rejimi\nLCD ekran\nYenidən doldurulan batareya",
     "whatsapp": "Salam! RAF Hand Blender (Əl blenderi)  (R.322) (11.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784470695179",
@@ -146,7 +168,9 @@
     "description": "2600W güclü buxar\nSabit istilik\n200ml böyük su tankı\nKablosuz altlıq 360°",
     "whatsapp": "Salam! RAF Electric Steam Iron (Buxarlı ütü)  (R.1297B) (47.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784470695179.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   },
   {
     "id": "1784470945115",
@@ -158,6 +182,8 @@
     "description": "5 sürət rejimi + Turbo\n2 çırpıcı + 2 qarışdırıcı ucluq\nPaslanmayan polad gövdə",
     "whatsapp": "Salam! RAF Hand Mixer (Əl mikseri)  (R.6664) (23.99₼) haqqında məlumat almaq istəyirəm.",
     "image": "images/products/1784470945115.png",
-    "inStock": true
+    "inStock": true,
+    "brand": "RAF",
+    "subcategory": "Mətbəx"
   }
 ]

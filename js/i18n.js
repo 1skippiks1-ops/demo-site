@@ -57,6 +57,8 @@ const TRANSLATIONS = {
     sort_price_desc: "Qiymət: çoxdan aza",
     brand_label: "Marka:",
     all_brands: "Bütün markalar",
+    subcat_label: "Alt-kateqoriya:",
+    all_subcats: "Hamısı",
   },
   en: {
     nav_catalog: "Catalog",
@@ -112,6 +114,8 @@ const TRANSLATIONS = {
     sort_price_desc: "Price: high to low",
     brand_label: "Brand:",
     all_brands: "All brands",
+    subcat_label: "Subcategory:",
+    all_subcats: "All",
   },
   ru: {
     nav_catalog: "Каталог",
@@ -167,6 +171,8 @@ const TRANSLATIONS = {
     sort_price_desc: "Цена: по убыванию",
     brand_label: "Бренд:",
     all_brands: "Все бренды",
+    subcat_label: "Подкатегория:",
+    all_subcats: "Все",
   },
 };
 
