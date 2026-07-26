@@ -100,7 +100,7 @@ function renderCard(p) {
     <a href="product.html?id=${p.id}" class="product-card">
       <div class="product-image">${imgHtml}${ribbonHtml}</div>
       <div class="product-body">
-        <p class="product-category">${categoryLabel(p.category)}</p>
+        <p class="product-category">${p.subcategory || categoryLabel(p.category)}</p>
         <h3 class="product-name">${localized(p, "name")}</h3>
         <div class="product-footer">
           ${priceHtml}

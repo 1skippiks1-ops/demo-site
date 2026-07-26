@@ -477,6 +477,11 @@ body {
     border-color: var(--purple);
     flex: 0 0 270px;
     width: 270px;
+    /* .product-card's base height:100% is meant for the CSS Grid catalog,
+       where it resolves against a defined row height. Here the parent is
+       a flex row with no explicit height, so height:100% fights against
+       align-items:stretch instead of matching it — auto lets stretch work. */
+    height: auto;
 }
 .featured-arrow {
     position: absolute;
