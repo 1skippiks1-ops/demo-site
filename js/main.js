@@ -395,10 +395,9 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
   mobileList.innerHTML = `<li class="mobile-cat-item"><div class="mobile-cat-row"><button class="mobile-cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></div></li>`;
 
   ALL_CATEGORIES.forEach(({ key, icon }) => {
-    // Categories with no products yet stay hidden — no point showing an
-    // empty, unclickable-feeling entry before you've actually added anything.
-    if (!activeCats.has(key)) return;
-
+    // All main categories always show (browsable even before you've added
+    // anything to them yet) — only subcategories/brands are hidden when empty.
+    const hasProducts = activeCats.has(key);
     const label = categoryLabel(key);
     const isActive = currentCat === key;
     const subcatGroups = getSubcategoryGroups(products, key);
@@ -449,7 +448,10 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
     dLi.className = "cat-item" + (hasFlyout ? " has-flyout" : "");
 
     const dBtn = document.createElement("button");
-    dBtn.className = "cat-btn" + (isActive ? " active" : "");
+    dBtn.className =
+      "cat-btn" +
+      (hasProducts ? "" : " cat-btn--empty") +
+      (isActive ? " active" : "");
     dBtn.dataset.cat = key;
     dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
     dLi.appendChild(dBtn);
@@ -472,7 +474,10 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
     row.className = "mobile-cat-row";
 
     const mBtn = document.createElement("button");
-    mBtn.className = "mobile-cat-btn" + (isActive ? " active" : "");
+    mBtn.className =
+      "mobile-cat-btn" +
+      (hasProducts ? "" : " mobile-cat-btn--empty") +
+      (isActive ? " active" : "");
     mBtn.dataset.cat = key;
     mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
     row.appendChild(mBtn);
