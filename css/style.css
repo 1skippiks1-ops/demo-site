@@ -479,6 +479,41 @@ body {
 .featured-grid::-webkit-scrollbar {
     display: none;
 }
+/* Edge fade — when a card is sliced by the container edge, fading it out
+   reads as "scroll for more" instead of looking like a layout bug. Same
+   fade width everywhere, so it stays symmetric at any viewport size. */
+.featured-grid.fade-right {
+    -webkit-mask-image: linear-gradient(
+        to right,
+        black calc(100% - 56px),
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        black calc(100% - 56px),
+        transparent 100%
+    );
+}
+.featured-grid.fade-left {
+    -webkit-mask-image: linear-gradient(to left, black calc(100% - 56px), transparent 100%);
+    mask-image: linear-gradient(to left, black calc(100% - 56px), transparent 100%);
+}
+.featured-grid.fade-left.fade-right {
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 56px,
+        black calc(100% - 56px),
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 56px,
+        black calc(100% - 56px),
+        transparent 100%
+    );
+}
 .featured-grid .product-card {
     border-color: var(--purple);
     flex: 0 0 270px;
@@ -949,8 +984,25 @@ body {
 }
 
 /* ---- Product detail ---- */
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.detail-back:hover {
+    color: var(--purple);
+}
+.detail-back svg {
+    flex-shrink: 0;
+}
 .product-detail {
-    padding: 2.5rem 0 4rem;
+    padding: 1.25rem 0 4rem;
 }
 .detail-inner {
     display: grid;

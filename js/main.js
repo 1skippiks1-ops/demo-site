@@ -2,6 +2,14 @@
    Kataloq — main.js
    ============================================ */
 
+// The catalog renders its grid/featured section asynchronously after fetching
+// products.json, so the browser's automatic scroll restoration fires too early
+// (before the page has its real height) and ends up in the wrong place. We
+// restore the scroll position ourselves once rendering is done instead.
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 const WA_NUMBER_FALLBACK = "994703007513";
 
 // İrşad-dan götürülmüş kateqoriyalar (sabit sıra)
@@ -638,10 +646,18 @@ function updateFeaturedArrows() {
   const hasOverflow = grid.scrollWidth > grid.clientWidth + 4;
   prevBtn.classList.toggle("hidden", !hasOverflow);
   nextBtn.classList.toggle("hidden", !hasOverflow);
-  if (!hasOverflow) return;
+  if (!hasOverflow) {
+    grid.classList.remove("fade-left", "fade-right");
+    return;
+  }
 
-  prevBtn.disabled = grid.scrollLeft <= 4;
-  nextBtn.disabled = grid.scrollLeft >= grid.scrollWidth - grid.clientWidth - 4;
+  const canScrollLeft = grid.scrollLeft > 4;
+  const canScrollRight =
+    grid.scrollLeft < grid.scrollWidth - grid.clientWidth - 4;
+  prevBtn.disabled = !canScrollLeft;
+  nextBtn.disabled = !canScrollRight;
+  grid.classList.toggle("fade-left", canScrollLeft);
+  grid.classList.toggle("fade-right", canScrollRight);
 }
 
 function scrollFeatured(direction) {
@@ -807,6 +823,30 @@ async function init() {
   document
     .getElementById("mobileOverlay")
     .addEventListener("click", closeMobileSidebar);
+
+  restoreScrollPosition();
 }
+
+/* ---- Scroll position restore (see scrollRestoration note above) ---- */
+function restoreScrollPosition() {
+  try {
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isBack = navEntry && navEntry.type === "back_forward";
+    const saved = sessionStorage.getItem("catalogScrollY");
+    if (isBack && saved !== null) {
+      window.scrollTo(0, parseInt(saved, 10) || 0);
+    }
+  } catch {
+    // sessionStorage/Performance API unavailable — just stay at the top.
+  }
+}
+
+window.addEventListener("pagehide", () => {
+  try {
+    sessionStorage.setItem("catalogScrollY", String(window.scrollY));
+  } catch {
+    // sessionStorage unavailable (e.g. private mode) — nothing to persist.
+  }
+});
 
 init();

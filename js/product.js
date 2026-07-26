@@ -112,6 +112,26 @@ function renderProduct(p) {
     </div>`;
 }
 
+function setupBackLink() {
+  const backLink = document.getElementById("backToCatalog");
+  if (!backLink) return;
+  backLink.addEventListener("click", (e) => {
+    try {
+      const sameOrigin =
+        document.referrer &&
+        new URL(document.referrer).origin === window.location.origin;
+      // Going back in history (instead of a fresh navigation to index.html)
+      // lets the browser restore the catalog's previous scroll position.
+      if (sameOrigin && window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+    } catch {
+      // Malformed/inaccessible referrer — fall back to the plain href navigation.
+    }
+  });
+}
+
 async function init() {
   const id = getIdFromURL();
   const container = document.getElementById("productDetail");
@@ -136,4 +156,5 @@ async function init() {
   }
 }
 
+setupBackLink();
 init();
