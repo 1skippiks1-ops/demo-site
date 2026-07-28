@@ -1,2 +1,9 @@
 # Local-only admin tool — never deploy/commit (no auth, browser-only)
 local-shop/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
