@@ -219,8 +219,7 @@
   {
     "id": "1785252994285",
     "name": "RAF Tozsoran R.8726",
-    "category": "Kiçik məişət texnikası",
-    "brand": "RAF",
+    "category": "Böyük məişət texnikası",
     "price": "87.99",
     "oldPrice": "110.00",
     "description": "Güclü motor - 800W güclü motor ilə sürətli və effektiv soruş\nHepa filtr - Toz və allergenləri tutaraq təmiz hava təmin edir\nBöyük təkərlər - Asan hərəkət və sabit dizayn\nÇoxfunksiyalı başlıqlar - Döşəmə, xalça, künc və çat yerlər üçün ideal\nUzun kabel - 5 metrlik kabel ilə geniş təmizləmə radiusu",
@@ -231,7 +230,7 @@
   {
     "id": "1785253038663",
     "name": "RAF Tozsoran R.8726",
-    "category": "Kiçik məişət texnikası",
+    "category": "Böyük məişət texnikası",
     "brand": "RAF",
     "price": "111.99",
     "oldPrice": "140.00",
@@ -255,7 +254,7 @@
   {
     "id": "1785253115810",
     "name": "RAF Tozsoran R.8670",
-    "category": "Kiçik məişət texnikası",
+    "category": "Böyük məişət texnikası",
     "brand": "RAF",
     "price": "116.99",
     "oldPrice": "130.00",
@@ -267,7 +266,7 @@
   {
     "id": "1785253157411",
     "name": "RAF Tozsoran R.8763",
-    "category": "Kiçik məişət texnikası",
+    "category": "Böyük məişət texnikası",
     "brand": "RAF",
     "price": "49.99",
     "oldPrice": "100.00",
@@ -279,7 +278,7 @@
   {
     "id": "1785253198277",
     "name": "RAF Tozsoran R.8764W",
-    "category": "Kiçik məişət texnikası",
+    "category": "Böyük məişət texnikası",
     "price": "49.99",
     "oldPrice": "100.00",
     "description": "Güclü motor - 600W güclü motor ilə sürətli və effektiv soruş\nHepa filtr - Toz və allergenləri tutaraq təmiz hava təmin edir\nYüksək tutum - Böyük toz tutumu ilə daha uzun istifadə imkanı\nÇoxfunksiyalı istifadə - Döşəmə, xalça, künc və çat yerlər üçün ideal\nUzun kabel - 5 metrlik kabel ilə geniş təmizləmə radiusu",
@@ -396,7 +395,7 @@
   {
     "id": "1785253697229",
     "name": "HAUSER 43LE650US 43” UHD 4K TV",
-    "category": "Kiçik məişət texnikası",
+    "category": "TV və Audio",
     "brand": "RAF",
     "price": "390.99",
     "oldPrice": "459.99",
