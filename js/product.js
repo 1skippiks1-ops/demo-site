@@ -96,7 +96,7 @@ function renderProduct(p) {
     <div class="detail-inner">
       <div class="detail-image">${imgHtml}${ribbonHtml}</div>
       <div class="detail-info">
-        <p class="detail-category">${p.subcategory || categoryLabel(p.category)}</p>
+        <p class="detail-category">${categoryLabel(p.category)}</p>
         <h1 class="detail-name">${name}</h1>
         ${priceHtml}
         ${stockHtml}

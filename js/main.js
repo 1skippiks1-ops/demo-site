@@ -12,21 +12,11 @@ if ("scrollRestoration" in history) {
 
 const WA_NUMBER_FALLBACK = "994703007513";
 
-// İrşad-dan götürülmüş kateqoriyalar (sabit sıra)
 const ALL_CATEGORIES = [
-  { key: "Telefon və aksesuarlar", icon: "📱" },
   { key: "Böyük məişət texnikası", icon: "🫙" },
   { key: "Kiçik məişət texnikası", icon: "🍳" },
   { key: "TV və Audio", icon: "📺" },
-  { key: "Foto texnika", icon: "📷" },
-  { key: "Notbuk, planşet və kompüter texnikası", icon: "💻" },
   { key: "Evə uyğun məhsullar", icon: "🏠" },
-  { key: "Mebellər və tekstil", icon: "🛋️" },
-  { key: "Nəqliyyat və Əyləncə", icon: "🚲" },
-  { key: "İdman və sağlamlıq", icon: "💪" },
-  { key: "Avtomobil üçün məhsullar", icon: "🚗" },
-  { key: "İnşaat", icon: "🔨" },
-  { key: "Dəftərxana ləvazimatları", icon: "✏️" },
 ];
 
 async function loadProducts() {
@@ -108,7 +98,7 @@ function renderCard(p) {
     <a href="product.html?id=${p.id}" class="product-card">
       <div class="product-image">${imgHtml}${ribbonHtml}</div>
       <div class="product-body">
-        <p class="product-category">${p.subcategory || categoryLabel(p.category)}</p>
+        <p class="product-category">${categoryLabel(p.category)}</p>
         <h3 class="product-name">${localized(p, "name")}</h3>
         <div class="product-footer">
           ${priceHtml}
@@ -128,130 +118,9 @@ function renderComingSoon() {
 
 let currentProducts = [];
 let currentCat = "all";
-let currentSubcat = "all";
-let currentBrand = "all";
 let currentSort = "default";
 let currentPage = 1;
 const PAGE_SIZE = 12;
-
-/* ---- Subcategory / brand helpers ----
-   Both come from the products themselves (products.json's optional
-   "subcategory" / "brand" fields) rather than a separate file, so the
-   filters always match whatever the admin has actually assigned. ---- */
-function getSubcategoriesForCategory(products, cat) {
-  const scoped =
-    cat === "all" ? products : products.filter((p) => p.category === cat);
-  const subs = new Set(scoped.map((p) => p.subcategory).filter(Boolean));
-  return [...subs].sort((a, b) => a.localeCompare(b));
-}
-
-// Brands scoped to a category AND (optionally) a subcategory within it —
-// used by the toolbar's brand <select>, which should only ever offer
-// brands that actually exist in the currently-browsed slice.
-function getBrandsForScope(products, cat, subcat) {
-  let scoped =
-    cat === "all" ? products : products.filter((p) => p.category === cat);
-  if (subcat && subcat !== "all") {
-    scoped = scoped.filter((p) => p.subcategory === subcat);
-  }
-  const brands = new Set(scoped.map((p) => p.brand).filter(Boolean));
-  return [...brands].sort((a, b) => a.localeCompare(b));
-}
-
-// Brands belonging to products that have NO subcategory — these are the
-// ones shown as a flat list directly under a category in the flyout/
-// accordion (categories that haven't been given subcategories yet).
-function getDirectBrandsForCategory(products, cat) {
-  const scoped = (
-    cat === "all" ? products : products.filter((p) => p.category === cat)
-  ).filter((p) => !p.subcategory);
-  const brands = new Set(scoped.map((p) => p.brand).filter(Boolean));
-  return [...brands].sort((a, b) => a.localeCompare(b));
-}
-
-// { subcat, brands }[] for a category — powers the nested flyout/accordion.
-function getSubcategoryGroups(products, cat) {
-  const scoped =
-    cat === "all" ? products : products.filter((p) => p.category === cat);
-  const map = new Map();
-  scoped.forEach((p) => {
-    if (!p.subcategory) return;
-    if (!map.has(p.subcategory)) map.set(p.subcategory, new Set());
-    if (p.brand) map.get(p.subcategory).add(p.brand);
-  });
-  return [...map.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([subcat, brandSet]) => ({
-      subcat,
-      brands: [...brandSet].sort((a, b) => a.localeCompare(b)),
-    }));
-}
-
-// Rebuilds the toolbar's subcategory <select> for the given category.
-// The whole toolbar group hides itself when the category has none.
-function refreshSubcatOptions(cat) {
-  const select = document.getElementById("subcatSelect");
-  const group = document.getElementById("subcatToolbarGroup");
-  if (!select || !group) return;
-
-  const subs = getSubcategoriesForCategory(currentProducts, cat);
-  if (!subs.length) {
-    group.style.display = "none";
-    currentSubcat = "all";
-    return;
-  }
-  group.style.display = "";
-  select.innerHTML =
-    `<option value="all">${t("all_subcats")}</option>` +
-    subs.map((s) => `<option value="${s}">${s}</option>`).join("");
-
-  if (currentSubcat !== "all" && !subs.includes(currentSubcat)) {
-    currentSubcat = "all";
-  }
-  select.value = currentSubcat;
-}
-
-// Rebuilds the toolbar's brand <select> for the given category+subcategory.
-// Keeps the currently selected brand if it's still valid for that scope,
-// otherwise falls back to "all" instead of silently showing zero results.
-// A single-brand catalog gets nothing to actually filter, so the whole
-// group hides — a dropdown with one meaningless option looks unfinished.
-function refreshBrandOptions(cat) {
-  const select = document.getElementById("brandSelect");
-  const group = document.getElementById("brandToolbarGroup");
-  if (!select || !group) return;
-
-  const brands = getBrandsForScope(currentProducts, cat, currentSubcat);
-  if (brands.length < 2) {
-    group.style.display = "none";
-    currentBrand = "all";
-    return;
-  }
-  group.style.display = "";
-  select.innerHTML =
-    `<option value="all">${t("all_brands")}</option>` +
-    brands.map((b) => `<option value="${b}">${b}</option>`).join("");
-
-  if (currentBrand !== "all" && !brands.includes(currentBrand)) {
-    currentBrand = "all";
-  }
-  select.value = currentBrand;
-}
-
-function updateBrandLinkActiveStates() {
-  document
-    .querySelectorAll(".cat-flyout-link, .mobile-cat-sublist-link")
-    .forEach((el) => {
-      const elSubcat = el.dataset.subcat || "all";
-      const elBrand = el.dataset.brand || "all";
-      el.classList.toggle(
-        "active",
-        el.dataset.cat === currentCat &&
-          elSubcat === currentSubcat &&
-          elBrand === currentBrand,
-      );
-    });
-}
 
 function applySort(products, sort) {
   if (sort === "price_asc") {
@@ -269,11 +138,7 @@ function applySort(products, sort) {
 
 function setActiveCategory(cat) {
   currentCat = cat;
-  currentSubcat = "all";
-  currentBrand = "all";
   currentPage = 1;
-  refreshSubcatOptions(cat);
-  refreshBrandOptions(cat);
 
   // Desktop sidebar
   document
@@ -283,41 +148,11 @@ function setActiveCategory(cat) {
   document
     .querySelectorAll(".mobile-cat-btn")
     .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
-  updateBrandLinkActiveStates();
   // Active label
   const lbl = document.getElementById("activeCatLabel");
   if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
 
   renderGrid(currentProducts, cat);
-}
-
-// Used by the category mega-menu's shortcuts (desktop flyout / mobile
-// accordion): jumps straight to a category pre-filtered by a subcategory
-// and/or brand. Either can be omitted ("all") — e.g. clicking a subcategory
-// heading passes no brand, clicking a nested brand link passes both.
-function selectCategoryFromFlyout(cat, subcat, brand) {
-  currentCat = cat;
-  currentSubcat = subcat || "all";
-  currentBrand = brand || "all";
-  currentPage = 1;
-  refreshSubcatOptions(cat);
-  refreshBrandOptions(cat);
-
-  document
-    .querySelectorAll(".cat-btn")
-    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
-  document
-    .querySelectorAll(".mobile-cat-btn")
-    .forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
-  updateBrandLinkActiveStates();
-
-  const lbl = document.getElementById("activeCatLabel");
-  if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
-
-  renderGrid(currentProducts, cat);
-  document
-    .getElementById("catalog")
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function buildSidebars(products) {
@@ -326,77 +161,29 @@ function buildSidebars(products) {
   const desktopList = document.getElementById("catList");
   const mobileList = document.getElementById("mobileCatList");
 
-  renderCategoryButtons(desktopList, mobileList, activeCats, products);
+  renderCategoryButtons(desktopList, mobileList, activeCats);
 
-  // Click handlers — desktop (plain category buttons + flyout subcat/brand links)
   desktopList.addEventListener("click", (e) => {
-    const flyoutLink = e.target.closest(".cat-flyout-link");
-    if (flyoutLink) {
-      selectCategoryFromFlyout(
-        flyoutLink.dataset.cat,
-        flyoutLink.dataset.subcat || "all",
-        flyoutLink.dataset.brand || "all",
-      );
-      return;
-    }
     const btn = e.target.closest(".cat-btn");
     if (!btn) return;
     setActiveCategory(btn.dataset.cat);
   });
 
-  // Click handlers — mobile (category buttons, accordion toggle, subcat/brand links)
   mobileList.addEventListener("click", (e) => {
-    const toggle = e.target.closest(".mobile-cat-toggle");
-    if (toggle) {
-      toggle.classList.toggle("open");
-      toggle
-        .closest(".mobile-cat-item")
-        ?.querySelector(".mobile-cat-sublist")
-        ?.classList.toggle("open");
-      return;
-    }
-    const subLink = e.target.closest(".mobile-cat-sublist-link");
-    if (subLink) {
-      selectCategoryFromFlyout(
-        subLink.dataset.cat,
-        subLink.dataset.subcat || "all",
-        subLink.dataset.brand || "all",
-      );
-      closeMobileSidebar();
-      return;
-    }
     const btn = e.target.closest(".mobile-cat-btn");
     if (!btn) return;
     setActiveCategory(btn.dataset.cat);
     closeMobileSidebar();
   });
 
-  // Toolbar — sort + subcategory + brand
   document.getElementById("sortSelect")?.addEventListener("change", (e) => {
     currentSort = e.target.value;
     currentPage = 1;
     renderGrid(currentProducts, currentCat);
   });
-  document.getElementById("subcatSelect")?.addEventListener("change", (e) => {
-    currentSubcat = e.target.value;
-    currentBrand = "all";
-    currentPage = 1;
-    refreshBrandOptions(currentCat);
-    updateBrandLinkActiveStates();
-    renderGrid(currentProducts, currentCat);
-  });
-  document.getElementById("brandSelect")?.addEventListener("change", (e) => {
-    currentBrand = e.target.value;
-    currentPage = 1;
-    updateBrandLinkActiveStates();
-    renderGrid(currentProducts, currentCat);
-  });
-
-  refreshSubcatOptions(currentCat);
-  refreshBrandOptions(currentCat);
 }
 
-function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
+function renderCategoryButtons(desktopList, mobileList, activeCats) {
   const allLabel = t("all");
 
   desktopList.innerHTML = `<li class="cat-item"><button class="cat-btn${currentCat === "all" ? " active" : ""}" data-cat="all">${allLabel}</button></li>`;
@@ -404,57 +191,13 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
 
   ALL_CATEGORIES.forEach(({ key, icon }) => {
     // All main categories always show (browsable even before you've added
-    // anything to them yet) — only subcategories/brands are hidden when empty.
+    // anything to them yet), just styled as muted when still empty.
     const hasProducts = activeCats.has(key);
     const label = categoryLabel(key);
     const isActive = currentCat === key;
-    const subcatGroups = getSubcategoryGroups(products, key);
-    const directBrands = getDirectBrandsForCategory(products, key);
-    // A single-brand catalog has nothing to actually choose between, so
-    // brand links only earn their place once there's a real choice (2+).
-    const hasFlyout = subcatGroups.length > 0 || directBrands.length > 1;
 
-    const isLinkActive = (subcat, brand) =>
-      currentCat === key &&
-      currentSubcat === (subcat || "all") &&
-      currentBrand === (brand || "all");
-
-    // Shared inner markup for both the desktop flyout and the mobile
-    // accordion: subcategory groups (bold heading + nested brand links,
-    // only when 2+ brands make the nesting worthwhile), then any brands
-    // whose products have no subcategory at all (same 2+ rule).
-    const groupsHtml = subcatGroups
-      .map(
-        ({ subcat, brands }) => `
-        <li class="cat-flyout-group">
-          <button class="cat-flyout-link cat-flyout-link--subcat${isLinkActive(subcat) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}">${subcat}</button>
-          ${
-            brands.length > 1
-              ? `<ul class="cat-flyout-brands">${brands
-                  .map(
-                    (b) =>
-                      `<li><button class="cat-flyout-link${isLinkActive(subcat, b) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}" data-brand="${b}">${b}</button></li>`,
-                  )
-                  .join("")}</ul>`
-              : ""
-          }
-        </li>`,
-      )
-      .join("");
-    const directBrandsHtml =
-      directBrands.length > 1
-        ? directBrands
-            .map(
-              (b) =>
-                `<li><button class="cat-flyout-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
-            )
-            .join("")
-        : "";
-
-    // ---- Desktop: li.cat-item[.has-flyout] > button.cat-btn + div.cat-flyout ----
     const dLi = document.createElement("li");
-    dLi.className = "cat-item" + (hasFlyout ? " has-flyout" : "");
-
+    dLi.className = "cat-item";
     const dBtn = document.createElement("button");
     dBtn.className =
       "cat-btn" +
@@ -463,24 +206,12 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
     dBtn.dataset.cat = key;
     dBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
     dLi.appendChild(dBtn);
-
-    if (hasFlyout) {
-      const flyout = document.createElement("div");
-      flyout.className = "cat-flyout";
-      flyout.innerHTML = `
-        <div class="cat-flyout-title">${label}</div>
-        <ul class="cat-flyout-list">${groupsHtml}${directBrandsHtml}</ul>`;
-      dLi.appendChild(flyout);
-    }
     desktopList.appendChild(dLi);
 
-    // ---- Mobile: li.mobile-cat-item > div.mobile-cat-row(button[+toggle]) + ul.mobile-cat-sublist ----
     const mLi = document.createElement("li");
     mLi.className = "mobile-cat-item";
-
     const row = document.createElement("div");
     row.className = "mobile-cat-row";
-
     const mBtn = document.createElement("button");
     mBtn.className =
       "mobile-cat-btn" +
@@ -489,48 +220,7 @@ function renderCategoryButtons(desktopList, mobileList, activeCats, products) {
     mBtn.dataset.cat = key;
     mBtn.innerHTML = `<span class="cat-icon">${icon}</span>${label}`;
     row.appendChild(mBtn);
-
-    if (hasFlyout) {
-      const toggleBtn = document.createElement("button");
-      toggleBtn.className = "mobile-cat-toggle";
-      toggleBtn.setAttribute("aria-label", "Alt-kateqoriyalar");
-      toggleBtn.innerHTML = "▾";
-      row.appendChild(toggleBtn);
-    }
     mLi.appendChild(row);
-
-    if (hasFlyout) {
-      const sublist = document.createElement("ul");
-      sublist.className = "mobile-cat-sublist";
-      sublist.innerHTML =
-        subcatGroups
-          .map(
-            ({ subcat, brands }) => `
-          <li class="mobile-cat-subgroup">
-            <button class="mobile-cat-sublist-link mobile-cat-sublist-link--subcat${isLinkActive(subcat) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}">${subcat}</button>
-            ${
-              brands.length > 1
-                ? brands
-                    .map(
-                      (b) =>
-                        `<button class="mobile-cat-sublist-link mobile-cat-sublist-link--brand${isLinkActive(subcat, b) ? " active" : ""}" data-cat="${key}" data-subcat="${subcat}" data-brand="${b}">${b}</button>`,
-                    )
-                    .join("")
-                : ""
-            }
-          </li>`,
-          )
-          .join("") +
-        (directBrands.length > 1
-          ? directBrands
-              .map(
-                (b) =>
-                  `<li><button class="mobile-cat-sublist-link${isLinkActive(null, b) ? " active" : ""}" data-cat="${key}" data-brand="${b}">${b}</button></li>`,
-              )
-              .join("")
-          : "");
-      mLi.appendChild(sublist);
-    }
     mobileList.appendChild(mLi);
   });
 }
@@ -541,16 +231,10 @@ function renderGrid(products, cat = "all") {
 
   let filtered =
     cat === "all" ? products : products.filter((p) => p.category === cat);
-  if (currentSubcat !== "all") {
-    filtered = filtered.filter((p) => p.subcategory === currentSubcat);
-  }
-  if (currentBrand !== "all") {
-    filtered = filtered.filter((p) => p.brand === currentBrand);
-  }
 
   if (!filtered.length) {
     grid.innerHTML =
-      cat === "all" && currentSubcat === "all" && currentBrand === "all"
+      cat === "all"
         ? `<div class="empty-state"><h3>${t("empty_title")}</h3><p>${t("empty_sub")}</p></div>`
         : renderComingSoon();
     if (pagination) pagination.innerHTML = "";
@@ -765,10 +449,7 @@ window.addEventListener("shop:langchange", () => {
     document.getElementById("catList"),
     document.getElementById("mobileCatList"),
     activeCats,
-    currentProducts,
   );
-  refreshSubcatOptions(currentCat);
-  refreshBrandOptions(currentCat);
   renderGrid(currentProducts, currentCat);
   renderFeaturedSection(currentProducts);
   applyCampaignText();
