@@ -155,6 +155,9 @@ function setActiveCategory(cat) {
   if (lbl) lbl.textContent = cat === "all" ? t("all") : categoryLabel(cat);
 
   renderGrid(currentProducts, cat);
+  document
+    .getElementById("catalog")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function buildSidebars(products) {
