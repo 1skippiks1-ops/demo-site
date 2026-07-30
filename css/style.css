@@ -1670,7 +1670,18 @@ body {
         overflow: hidden;
     }
     .product-price {
-        font-size: 1.5rem;
+        font-size: 1.15rem;
+    }
+    .product-price span {
+        font-size: 0.85rem;
+    }
+    .product-price-old {
+        font-size: 0.8rem;
+    }
+    .discount-ribbon {
+        font-size: 14px;
+        padding: 5px 12px;
+        border-radius: 22px;
     }
     .stock-badge {
         font-size: 10px;
