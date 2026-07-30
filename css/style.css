@@ -641,6 +641,7 @@ body {
 .featured-section {
     padding: 3rem 0 2rem;
     border-bottom: 1px solid var(--line);
+    scroll-margin-top: 80px;
 }
 .featured-title {
     font-size: 1.5rem;
