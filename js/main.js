@@ -94,9 +94,11 @@ function renderCard(p) {
       ? `<div><p class="product-price-old">${p.oldPrice} ₼</p><p class="product-price">${p.price} <span>₼</span></p></div>`
       : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
+  const cartBtnHtml = `<button class="card-cart-btn" data-id="${p.id}" aria-label="${t("cart_add")}"${p.inStock ? "" : " disabled"}>🛒</button>`;
+
   return `
     <a href="product.html?id=${p.id}" class="product-card">
-      <div class="product-image">${imgHtml}${ribbonHtml}</div>
+      <div class="product-image">${imgHtml}${ribbonHtml}${cartBtnHtml}</div>
       <div class="product-body">
         <p class="product-category">${categoryLabel(p.category)}</p>
         <h3 class="product-name">${localized(p, "name")}</h3>
@@ -489,6 +491,8 @@ async function init() {
   initFeaturedCarousel();
   renderFeaturedSection(products);
   setupCampaign(campaign);
+  bindCardAddToCart(document.getElementById("productGrid"));
+  bindCardAddToCart(document.getElementById("featuredGrid"));
 
   document
     .getElementById("mobileMenuBtn")

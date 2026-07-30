@@ -88,6 +88,14 @@
                         <a href="tel:+994703007513" class="nav-phone"
                             >📞 +994 70 300 75 13</a
                         >
+                        <button class="cart-btn" id="cartBtn" aria-label="Səbət">
+                            🛒
+                            <span
+                                class="cart-badge"
+                                style="display: none"
+                                >0</span
+                            >
+                        </button>
                         <!-- Language switcher -->
                         <div class="lang-switcher">
                             <button class="lang-btn active" data-lang="az">
@@ -128,6 +136,17 @@
                     </button>
                 </li>
             </ul>
+        </aside>
+
+        <!-- Cart drawer -->
+        <div class="cart-overlay" id="cartOverlay"></div>
+        <aside class="cart-drawer" id="cartDrawer">
+            <div class="cart-drawer-header">
+                <span data-i18n="cart_title">Səbət</span>
+                <button class="mobile-close-btn" id="cartClose">✕</button>
+            </div>
+            <div class="cart-drawer-body" id="cartBody"></div>
+            <div class="cart-drawer-footer" id="cartFooter"></div>
         </aside>
 
         <main>
@@ -518,6 +537,7 @@
         </footer>
 
         <script src="js/i18n.js"></script>
+        <script src="js/cart.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
