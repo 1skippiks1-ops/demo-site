@@ -91,7 +91,7 @@ function renderCard(p) {
 
   const priceHtml =
     pct > 0
-      ? `<div><p class="product-price-old">${p.oldPrice} ₼</p><p class="product-price">${p.price} <span>₼</span></p></div>`
+      ? `<div class="product-price-block"><p class="product-price-old">${p.oldPrice} ₼</p><p class="product-price">${p.price} <span>₼</span></p></div>`
       : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
   const cartBtnHtml = `<button class="card-cart-btn" data-id="${p.id}" aria-label="${t("cart_add")}"${p.inStock ? "" : " disabled"}>🛒</button>`;

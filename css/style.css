@@ -756,6 +756,10 @@ body {
 /* ---- Catalog section ---- */
 .catalog-section {
     padding: 2.5rem 0 4rem;
+    /* The sticky header would otherwise cover the top of this section
+       (including the sort/category row) whenever something scrolls it
+       into view — this reserves space for the header above it. */
+    scroll-margin-top: 80px;
 }
 
 .catalog-layout {
@@ -1017,14 +1021,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
     border-top: 1px solid var(--line);
     padding-top: 0.75rem;
     margin-top: auto;
+}
+.product-price-block {
+    min-width: 0;
 }
 .product-price {
     font-size: 1.725rem;
     font-weight: 800;
     color: var(--purple);
+    white-space: nowrap;
 }
 .product-price span {
     font-size: 1.275rem;
@@ -1038,6 +1048,7 @@ body {
     color: var(--ink-soft);
     text-decoration: line-through;
     margin-bottom: 1px;
+    white-space: nowrap;
 }
 /* Discount ribbon — sits on the image itself (top-right corner) instead of
    competing for space in the card's price/stock row. */
@@ -1087,6 +1098,8 @@ body {
     font-weight: 600;
     padding: 3px 10px;
     border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 .stock-badge.in {
     background: var(--green-bg);
@@ -1522,22 +1535,36 @@ body {
     color: var(--purple);
     text-decoration: none;
 }
-.footer-lang {
+.footer-social {
     display: flex;
     align-items: center;
-    gap: 3px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: var(--radius);
-    padding: 4px;
+    gap: 0.9rem;
 }
-.footer-lang .lang-btn {
-    color: rgba(255, 255, 255, 0.5);
-}
-.footer-lang .lang-btn:hover {
+.footer-social-title {
+    font-size: 13px;
+    font-weight: 700;
     color: var(--white);
-    background: rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
 }
-.footer-lang .lang-btn.active {
+.footer-social-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.footer-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.75);
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.footer-social-icon:hover {
     background: var(--purple);
     color: var(--white);
 }
@@ -1595,10 +1622,9 @@ body {
     .mobile-cat-trigger-bar {
         display: flex;
         margin-bottom: 0;
-        flex: 1;
-        justify-content: flex-end;
-        min-width: 0;
+        margin-left: auto;
         gap: 0.4rem;
+        max-width: 100%;
     }
     .mobile-cat-trigger {
         padding: 8px 12px;
@@ -1611,6 +1637,7 @@ body {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        min-width: 0;
     }
     .product-grid,
     .pagination {
@@ -1682,6 +1709,9 @@ body {
         text-align: center;
     }
     .footer-logo {
+        justify-content: center;
+    }
+    .footer-social {
         justify-content: center;
     }
 }
