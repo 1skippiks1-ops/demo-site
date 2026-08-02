@@ -427,15 +427,28 @@ function setupCampaign(campaign) {
   const banner = document.getElementById("campaignBanner");
   if (!banner) return;
 
-  if (!campaign || !campaign.enabled || !campaign.startDate) {
+  if (!campaign || !campaign.enabled) {
     banner.style.display = "none";
     return;
   }
 
-  // Counts down to the campaign's start — once that date arrives the
-  // "coming soon" banner has done its job, so it hides itself.
-  const target = new Date(campaign.startDate);
-  if (isNaN(target.getTime()) || target.getTime() <= Date.now()) {
+  const now = Date.now();
+  const start = campaign.startDate ? new Date(campaign.startDate) : null;
+  const end = campaign.endDate ? new Date(campaign.endDate) : null;
+  const startValid = start && !isNaN(start.getTime());
+  const endValid = end && !isNaN(end.getTime());
+
+  // Before the campaign starts: count down to the start (a "coming soon"
+  // banner). Once that date arrives, switch to counting down to the end
+  // instead (a "hurry, ends soon" banner) — hide only once both have passed.
+  let countdownTarget = null;
+  if (startValid && start.getTime() > now) {
+    countdownTarget = start;
+  } else if (endValid && end.getTime() > now) {
+    countdownTarget = end;
+  }
+
+  if (!countdownTarget) {
     banner.style.display = "none";
     return;
   }
@@ -443,7 +456,7 @@ function setupCampaign(campaign) {
   currentCampaign = campaign;
   banner.style.display = "";
   applyCampaignText();
-  startCampaignTimer(target);
+  startCampaignTimer(countdownTarget);
 }
 
 /* ---- Re-render dynamic (non data-i18n) content when language changes ---- */
