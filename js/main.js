@@ -94,7 +94,7 @@ function renderCard(p) {
       ? `<div class="product-price-block"><p class="product-price-old">${p.oldPrice} ₼</p><p class="product-price">${p.price} <span>₼</span></p></div>`
       : `<p class="product-price">${p.price} <span>₼</span></p>`;
 
-  const cartBtnHtml = `<button class="card-cart-btn" data-id="${p.id}" aria-label="${t("cart_add")}"${p.inStock ? "" : " disabled"}>🛒</button>`;
+  const cartBtnHtml = `<button class="card-cart-btn" data-id="${p.id}" aria-label="${t("cart_add")}"${p.inStock ? "" : " disabled"}>${CART_ICON_SVG}</button>`;
 
   return `
     <a href="product.html?id=${p.id}" class="product-card">

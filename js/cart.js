@@ -10,6 +10,12 @@
 const CART_KEY = "shop_cart";
 const CART_WA_FALLBACK = "994703007513";
 
+// Shared cart icon markup — used on product cards, the detail page's "add
+// to cart" button, and the header/floating cart buttons (those are inline
+// in the HTML directly, but this covers everywhere main.js/product.js
+// build the icon dynamically).
+const CART_ICON_SVG = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>`;
+
 function getCart() {
   try {
     const raw = localStorage.getItem(CART_KEY);
@@ -62,10 +68,15 @@ function clearCart() {
 }
 
 function updateCartBadge() {
+  const count = getCartCount();
   document.querySelectorAll(".cart-badge").forEach((badge) => {
-    const count = getCartCount();
     badge.textContent = count;
     badge.style.display = count > 0 ? "" : "none";
+  });
+  // The floating cart button only earns its place once there's something
+  // to view — otherwise it's just a redundant button hovering over content.
+  document.querySelectorAll(".cart-fab").forEach((fab) => {
+    fab.classList.toggle("visible", count > 0);
   });
 }
 
@@ -98,7 +109,12 @@ function showCartToast(message) {
     toast.className = "shop-toast";
     document.body.appendChild(toast);
   }
-  toast.textContent = message;
+  toast.innerHTML = `
+    <span class="shop-toast-icon">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </span>
+    <span>${message}</span>
+  `;
   toast.classList.add("show");
   clearTimeout(cartToastTimer);
   cartToastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
