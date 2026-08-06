@@ -1855,11 +1855,11 @@ body {
         font-size: 2.2rem;
     }
     .product-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 0.75rem;
     }
     .product-image {
-        aspect-ratio: 3/2;
+        aspect-ratio: 4/3;
     }
     .product-body {
         padding: 0.75rem;
@@ -1906,11 +1906,6 @@ body {
     }
     .contact-title {
         font-size: 1.5rem;
-    }
-}
-@media (max-width: 400px) {
-    .product-grid {
-        grid-template-columns: 1fr;
     }
 }
 
