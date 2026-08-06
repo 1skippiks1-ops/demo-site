@@ -1222,10 +1222,95 @@ body {
     height: 100%;
     object-fit: contain;
     padding: 8px;
+    cursor: zoom-in;
 }
 .detail-image-placeholder {
     font-size: 5rem;
     opacity: 0.3;
+}
+.detail-zoom-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid var(--line);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(15, 10, 30, 0.12);
+    transition: background 0.15s, transform 0.15s;
+}
+.detail-zoom-hint:hover {
+    background: var(--white);
+    transform: scale(1.08);
+}
+
+/* ---- Image lightbox ---- */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 6, 20, 0.92);
+    z-index: 600;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-overlay.open {
+    display: flex;
+}
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.15s;
+    z-index: 1;
+}
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+.lightbox-scroll {
+    max-width: 92vw;
+    max-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-scroll img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+    cursor: zoom-in;
+    border-radius: var(--radius);
+}
+.lightbox-scroll.zoomed {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: block;
+    padding: 2rem;
+}
+.lightbox-scroll.zoomed img {
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
+    cursor: zoom-out;
+    border-radius: 0;
 }
 
 .detail-category {

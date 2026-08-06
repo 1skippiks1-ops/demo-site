@@ -75,7 +75,10 @@ function renderProduct(p) {
   const pct = discountPercent(p);
 
   const imgHtml = p.image
-    ? `<img src="${p.image}" alt="${name}">`
+    ? `<img id="detailImage" src="${p.image}" alt="${name}">
+       <button class="detail-zoom-hint" id="detailZoomBtn" aria-label="${t("zoom_image")}">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+       </button>`
     : `<div class="detail-image-placeholder">🏠</div>`;
   const ribbonHtml = pct > 0 ? `<span class="discount-ribbon">-${pct}%</span>` : "";
 
@@ -118,6 +121,45 @@ function renderProduct(p) {
         </details>
       </div>
     </div>`;
+}
+
+// Clicking the product photo opens it large in a fullscreen overlay —
+// clicking the enlarged photo itself toggles true (native-size, scrollable)
+// zoom, since the "fit to screen" view alone often isn't enough to make out
+// small print/details on a product box.
+function setupLightbox() {
+  const img = document.getElementById("detailImage");
+  const zoomBtn = document.getElementById("detailZoomBtn");
+  const overlay = document.getElementById("lightboxOverlay");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const scroll = document.getElementById("lightboxScroll");
+  const closeBtn = document.getElementById("lightboxClose");
+  if (!img || !overlay || !lightboxImg || !scroll || !closeBtn) return;
+
+  function open() {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    scroll.classList.remove("zoomed");
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  img.addEventListener("click", open);
+  zoomBtn?.addEventListener("click", open);
+  closeBtn.addEventListener("click", close);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close();
+  });
+  lightboxImg.addEventListener("click", () => {
+    scroll.classList.toggle("zoomed");
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("open")) close();
+  });
 }
 
 function setupBackLink() {
@@ -163,6 +205,7 @@ async function init() {
       addToCart(product.id);
       showCartToast(t("cart_added"));
     });
+    setupLightbox();
   } catch {
     container.innerHTML = `<div class="loading-state">${t("error_generic")} <a href="index.html">${t("back_to_catalog")}</a></div>`;
   }
